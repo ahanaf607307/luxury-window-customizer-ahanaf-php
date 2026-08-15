@@ -1,0 +1,40 @@
+# WordPress Core Files
+/wp-admin/
+/wp-includes/
+/wp-config.php
+/wp-config-sample.php
+/wp-activate.php
+/wp-blog-header.php
+/wp-comments-post.php
+/wp-cron.php
+/wp-links-opml.php
+/wp-load.php
+/wp-login.php
+/wp-mail.php
+/wp-settings.php
+/wp-signup.php
+/wp-trackback.php
+/xmlrpc.php
+/license.txt
+/readme.html
+/local-xdebuginfo.php
+/.htaccess
+/index.php
+
+# WordPress Content & Uploads
+/wp-content/uploads/
+/wp-content/upgrade/
+/wp-content/mu-plugins/
+/wp-content/index.php
+/wp-content/languages/
+
+# Third Party Plugins
+/wp-content/plugins/woocommerce/
+/wp-content/plugins/elementor/
+/wp-content/plugins/index.php
+/wp-content/themes/index.php
+
+# OS & Temp Files
+.DS_Store
+Thumbs.db
+*.log
