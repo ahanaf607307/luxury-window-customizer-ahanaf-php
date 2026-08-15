@@ -1,0 +1,24 @@
+/*
+Theme Name: Blog & Vlog Hub - Ahanaf
+Theme URI: https://example.com/blog-post-ahanaf
+Author: Ahanaf Mubasshir
+Author URI: https://example.com
+Description: A modern, high-performance WordPress theme designed for Blogs and Video Vlogs featuring frontend AJAX Authentication (Login/Register) and interactive AJAX Like system.
+Version: 1.0.0
+Tested up to: 6.7
+Requires at least: 6.0
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: blog-post-ahanaf
+Tags: blog, vlog, video, custom-header, custom-menu, featured-images, threaded-comments, translation-ready
+
+================================================================================
+WordPress Theme Developer Note (ফ্রেশারদের জন্য নোট):
+1. এই style.css ফাইলের উপরের কমেন্ট হেডারটি ওয়ার্ডপ্রেসকে বলে দেয় এটি একটি থিম।
+2. ওয়ার্ডপ্রেসের থিম সক্রিয় করতে এই হেডারটি থাকা বাধ্যতামূলক।
+3. সব মূল ডিজাইন ও রেসপনসিভ সিএসএস assets/css/main.css এ গুছিয়ে রাখা হয়েছে।
+================================================================================
+*/
+
+/* Core CSS is loaded from assets/css/main.css */
