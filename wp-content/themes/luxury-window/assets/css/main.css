@@ -121,10 +121,11 @@ button, input, textarea, select {
     position: sticky;
     top: 0;
     z-index: 100;
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    background: rgba(7, 7, 9, 0.88);
-    border-bottom: 1px solid var(--color-border);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background: rgba(7, 7, 9, 0.92);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
     transition: var(--transition);
 }
 
@@ -132,32 +133,43 @@ button, input, textarea, select {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 78px;
+    height: 76px;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 2rem;
     gap: 1.5rem;
+    width: 100%;
 }
 
-/* Logo */
+/* Logo (Fixed Single-Line Luxury Lockup) */
 .site-logo {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 0.65rem;
+    gap: 0.75rem;
     font-family: var(--font-heading);
-    font-size: 1.45rem;
+    font-size: 1.35rem;
     font-weight: 800;
     color: #ffffff;
-    letter-spacing: -0.5px;
+    letter-spacing: -0.3px;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .site-logo .logo-icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 38px;
-    height: 38px;
+    width: 36px;
+    height: 36px;
     background: var(--color-gold);
     border-radius: var(--radius-sm);
     color: #070709;
     box-shadow: 0 0 16px rgba(212, 175, 55, 0.4);
+    flex-shrink: 0;
+}
+
+.site-logo .logo-text {
+    white-space: nowrap;
 }
 
 .site-logo .logo-text span {
@@ -165,118 +177,222 @@ button, input, textarea, select {
     margin-left: 1px;
 }
 
-/* Navigation Links */
+/* Navigation Links (Centered Floating Glass Pill) */
 .main-nav {
     display: flex;
     align-items: center;
+    justify-content: center;
+    flex: 1;
 }
 
 .nav-menu {
     display: flex;
     list-style: none;
-    gap: 1.8rem;
+    gap: 0.35rem;
     align-items: center;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-full);
+    padding: 0.3rem 0.5rem;
+    backdrop-filter: blur(12px);
 }
 
 .nav-menu li a {
-    color: var(--color-text-muted);
-    font-weight: 500;
-    font-size: 0.95rem;
-    padding: 0.5rem 0.2rem;
-    position: relative;
-}
-
-.nav-menu li a:hover,
-.nav-menu li.current-menu-item > a {
-    color: var(--color-gold);
-}
-
-.nav-menu li.current-menu-item > a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: var(--color-gold);
-    box-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
-    border-radius: var(--radius-full);
-}
-
-/* Header Actions */
-.header-actions {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-/* Search Box in Header */
-.header-search {
-    position: relative;
-    display: none;
-}
-
-@media (min-width: 900px) {
-    .header-search {
-        display: block;
-    }
-}
-
-.header-search input {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-full);
-    padding: 0.52rem 1rem 0.52rem 2.4rem;
-    color: #fff;
-    font-size: 0.88rem;
-    width: 200px;
-    transition: var(--transition);
-}
-
-.header-search input:focus {
-    outline: none;
-    border-color: var(--color-gold);
-    background: rgba(255, 255, 255, 0.08);
-    width: 250px;
-    box-shadow: 0 0 16px rgba(212, 175, 55, 0.25);
-}
-
-.header-search .search-icon {
-    position: absolute;
-    left: 0.85rem;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--color-text-muted);
-    pointer-events: none;
-}
-
-/* Auth Buttons */
-.auth-buttons {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-}
-
-.btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 0.55rem 1.35rem;
-    font-size: 0.9rem;
+    display: inline-block;
+    color: #a1a1aa;
     font-weight: 600;
+    font-size: 0.88rem;
+    padding: 0.42rem 0.95rem;
     border-radius: var(--radius-full);
-    cursor: pointer;
-    border: none;
-    transition: var(--transition);
+    transition: all 0.25s ease;
+    white-space: nowrap;
     text-decoration: none;
 }
 
-.btn-primary {
+.nav-menu li a:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.nav-menu li.current-menu-item > a {
+    color: #070709 !important;
+    background: var(--color-gold) !important;
+    font-weight: 700;
+    box-shadow: 0 0 14px var(--color-gold-glow);
+}
+
+/* Window Studio Highlight Pill */
+.nav-menu li.studio-pill a {
+    color: var(--color-gold) !important;
+    background: rgba(212, 175, 55, 0.12);
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    font-weight: 700;
+}
+
+.nav-menu li.studio-pill:hover a {
+    background: var(--color-gold) !important;
+    color: #070709 !important;
+    box-shadow: 0 0 15px var(--color-gold-glow);
+}
+
+.nav-menu li.studio-pill.current-menu-item a {
+    background: var(--color-gold) !important;
+    color: #070709 !important;
+}
+
+/* Header Actions (Right Zone) */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    flex-shrink: 0;
+}
+
+/* Circular Icon Buttons */
+.header-icon-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #d4d4d8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.header-icon-btn:hover {
+    border-color: var(--color-gold);
+    color: var(--color-gold);
+    background: rgba(212, 175, 55, 0.1);
+    transform: translateY(-1px);
+}
+
+/* Header Mini-Cart Button */
+.header-cart-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.1);
+    border: 1px solid var(--color-gold);
+    color: var(--color-gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: all 0.25s ease;
+    text-decoration: none;
+}
+
+.header-cart-btn:hover {
     background: var(--color-gold);
     color: #070709;
-    font-weight: 700;
-    box-shadow: 0 4px 16px rgba(212, 175, 55, 0.35);
+    box-shadow: 0 0 15px var(--color-gold-glow);
+    transform: translateY(-1px);
+}
+
+.cart-count-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: #ef4444;
+    color: #ffffff;
+    font-size: 0.68rem;
+    font-weight: 800;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #070709;
+}
+
+/* Floating Quick Search Bar Dropdown */
+.header-search-dropdown-bar {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: rgba(7, 7, 9, 0.96);
+    border-bottom: 1px solid var(--color-gold);
+    backdrop-filter: blur(20px);
+    padding: 1.2rem 1.5rem;
+    display: none;
+    z-index: 99;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.85);
+}
+
+.header-search-dropdown-bar.is-open {
+    display: block;
+    animation: searchSlideDown 0.25s ease;
+}
+
+@keyframes searchSlideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.search-dropdown-form {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+}
+
+.search-dropdown-form input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    border-radius: var(--radius-full);
+    padding: 0.75rem 3rem 0.75rem 2.8rem;
+    color: #ffffff;
+    font-size: 1rem;
+    outline: none;
+    transition: var(--transition);
+}
+
+.search-dropdown-form input:focus {
+    border-color: var(--color-gold);
+    background: rgba(255, 255, 255, 0.09);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.25);
+}
+
+.dropdown-search-icon {
+    position: absolute;
+    left: 1rem;
+    color: var(--color-gold);
+    pointer-events: none;
+}
+
+.close-search-btn {
+    position: absolute;
+    right: 1rem;
+    background: transparent;
+    border: none;
+    color: var(--color-text-muted);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.close-search-btn:hover {
+    color: #ffffff;
+}
+
+/* User Menu & Auth Buttons */
+.auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.header-signin-btn {
+    padding: 0.45rem 1.1rem;
+    font-size: 0.88rem;
+    border-radius: var(--radius-full);
 }
 
 .btn-primary:hover {

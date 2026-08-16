@@ -22,6 +22,40 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // ১.১ Quick Search Dropdown Toggle
+    const searchToggleBtn = document.getElementById('headerSearchToggle');
+    const searchDropdown = document.getElementById('headerSearchDropdown');
+    const searchInput = document.getElementById('headerSearchInput');
+    const closeSearchBtn = document.getElementById('closeSearchDropdownBtn');
+
+    if (searchToggleBtn && searchDropdown) {
+        searchToggleBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            searchDropdown.classList.toggle('is-open');
+            if (searchDropdown.classList.contains('is-open') && searchInput) {
+                setTimeout(() => searchInput.focus(), 100);
+            }
+        });
+
+        if (closeSearchBtn) {
+            closeSearchBtn.addEventListener('click', function () {
+                searchDropdown.classList.remove('is-open');
+            });
+        }
+
+        document.addEventListener('click', function (e) {
+            if (!searchDropdown.contains(e.target) && !searchToggleBtn.contains(e.target)) {
+                searchDropdown.classList.remove('is-open');
+            }
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                searchDropdown.classList.remove('is-open');
+            }
+        });
+    }
+
     // ২. ইউজার প্রোফাইল ড্রপডাউন মেনু টগল
     const userBadgeBtn = document.querySelector('.user-badge-btn');
     const userMenuDropdown = document.querySelector('.user-menu-dropdown');
