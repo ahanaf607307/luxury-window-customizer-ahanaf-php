@@ -64,16 +64,17 @@ function vlogpulse_ajax_add_custom_window_to_cart() {
     }
 
     // Sanitize user inputs
-    $width        = isset($_POST['width']) ? floatval($_POST['width']) : 4.0;
-    $height       = isset($_POST['height']) ? floatval($_POST['height']) : 5.0;
-    $area_sqft    = isset($_POST['area_sqft']) ? floatval($_POST['area_sqft']) : ($width * $height);
-    $frame_name   = isset($_POST['frame_name']) ? sanitize_text_field($_POST['frame_name']) : 'Obsidian Black';
-    $glass_name   = isset($_POST['glass_name']) ? sanitize_text_field($_POST['glass_name']) : 'Crystal Clear Tempered';
-    $grid_name    = isset($_POST['grid_name']) ? sanitize_text_field($_POST['grid_name']) : 'Single Pane';
-    $handle_name  = isset($_POST['handle_name']) ? sanitize_text_field($_POST['handle_name']) : 'No Handle (Sliding)';
-    $unit_price   = isset($_POST['calculated_price']) ? floatval($_POST['calculated_price']) : 250.00;
-    $quantity     = isset($_POST['quantity']) ? max(1, (int)$_POST['quantity']) : 1;
-    $svg_preview  = isset($_POST['svg_preview']) ? wp_kses_post($_POST['svg_preview']) : '';
+    $width         = isset($_POST['width']) ? floatval($_POST['width']) : 4.0;
+    $height        = isset($_POST['height']) ? floatval($_POST['height']) : 5.0;
+    $area_sqft     = isset($_POST['area_sqft']) ? floatval($_POST['area_sqft']) : ($width * $height);
+    $frame_name    = isset($_POST['frame_name']) ? sanitize_text_field($_POST['frame_name']) : 'Obsidian Black';
+    $frame_profile = isset($_POST['frame_profile']) ? sanitize_text_field($_POST['frame_profile']) : '2.5″ Standard Architectural';
+    $glass_name    = isset($_POST['glass_name']) ? sanitize_text_field($_POST['glass_name']) : 'Crystal Clear Tempered';
+    $grid_name     = isset($_POST['grid_name']) ? sanitize_text_field($_POST['grid_name']) : 'Single Pane';
+    $handle_name   = isset($_POST['handle_name']) ? sanitize_text_field($_POST['handle_name']) : 'No Handle (Sliding)';
+    $unit_price    = isset($_POST['calculated_price']) ? floatval($_POST['calculated_price']) : 250.00;
+    $quantity      = isset($_POST['quantity']) ? max(1, (int)$_POST['quantity']) : 1;
+    $svg_preview   = isset($_POST['svg_preview']) ? wp_kses_post($_POST['svg_preview']) : '';
 
     // Build custom cart item data
     $custom_data = array(
@@ -82,12 +83,13 @@ function vlogpulse_ajax_add_custom_window_to_cart() {
             'height'           => $height,
             'area_sqft'        => $area_sqft,
             'frame_name'       => $frame_name,
+            'frame_profile'    => $frame_profile,
             'glass_name'       => $glass_name,
             'grid_name'        => $grid_name,
             'handle_name'      => $handle_name,
             'custom_price'     => $unit_price,
             'svg_preview'      => $svg_preview,
-            'unique_key'       => md5($width . $height . $frame_name . $glass_name . $grid_name . $handle_name . microtime()),
+            'unique_key'       => md5($width . $height . $frame_name . $frame_profile . $glass_name . $grid_name . $handle_name . microtime()),
         )
     );
 
@@ -104,7 +106,7 @@ function vlogpulse_ajax_add_custom_window_to_cart() {
         wp_send_json_error(array('message' => __('Failed to add custom window to cart. Please try again.', 'window-glass-customizer')));
     }
 }
-add_action('wp_ajax_vlogpulse_add_custom_window_to_cart', 'vlogpulse_ajax_add_custom_window_to_cart');
+add_action('wp_ajax_vlogpulse_add_custom_window_to_cart', 'vlogpulse_add_custom_window_to_cart');
 add_action('wp_ajax_nopriv_vlogpulse_add_custom_window_to_cart', 'vlogpulse_ajax_add_custom_window_to_cart');
 
 /**
@@ -148,23 +150,29 @@ function vlogpulse_display_custom_window_cart_meta($item_data, $cart_item) {
         $meta = $cart_item['vlogpulse_custom_window'];
 
         $item_data[] = array(
-            'key'   => __('Dimensions', 'vlogpulse-core'),
+            'key'   => __('Dimensions', 'window-glass-customizer'),
             'value' => esc_html($meta['width'] . ' ft (W) × ' . $meta['height'] . ' ft (H) — ' . $meta['area_sqft'] . ' sq.ft'),
         );
         $item_data[] = array(
-            'key'   => __('Frame Finish', 'vlogpulse-core'),
+            'key'   => __('Frame Finish', 'window-glass-customizer'),
             'value' => esc_html($meta['frame_name']),
         );
+        if (!empty($meta['frame_profile'])) {
+            $item_data[] = array(
+                'key'   => __('Frame Size / Profile', 'window-glass-customizer'),
+                'value' => esc_html($meta['frame_profile']),
+            );
+        }
         $item_data[] = array(
-            'key'   => __('Glass Glazing', 'vlogpulse-core'),
+            'key'   => __('Glass Glazing', 'window-glass-customizer'),
             'value' => esc_html($meta['glass_name']),
         );
         $item_data[] = array(
-            'key'   => __('Grid Style', 'vlogpulse-core'),
+            'key'   => __('Grid Style', 'window-glass-customizer'),
             'value' => esc_html($meta['grid_name']),
         );
         $item_data[] = array(
-            'key'   => __('Hardware & Lock', 'vlogpulse-core'),
+            'key'   => __('Hardware & Lock', 'window-glass-customizer'),
             'value' => esc_html($meta['handle_name']),
         );
     }
@@ -179,12 +187,15 @@ function vlogpulse_save_custom_window_order_item_meta($item, $cart_item_key, $va
     if (isset($values['vlogpulse_custom_window'])) {
         $meta = $values['vlogpulse_custom_window'];
 
-        $item->add_meta_data(__('Custom Dimensions', 'vlogpulse-core'), $meta['width'] . ' ft (W) × ' . $meta['height'] . ' ft (H) (' . $meta['area_sqft'] . ' sq.ft)');
-        $item->add_meta_data(__('Frame Finish', 'vlogpulse-core'), $meta['frame_name']);
-        $item->add_meta_data(__('Glass Glazing', 'vlogpulse-core'), $meta['glass_name']);
-        $item->add_meta_data(__('Grid Pattern', 'vlogpulse-core'), $meta['grid_name']);
-        $item->add_meta_data(__('Hardware & Lock', 'vlogpulse-core'), $meta['handle_name']);
-        $item->add_meta_data(__('Engineered Unit Price', 'vlogpulse-core'), '$' . number_format($meta['custom_price'], 2));
+        $item->add_meta_data(__('Custom Dimensions', 'window-glass-customizer'), $meta['width'] . ' ft (W) × ' . $meta['height'] . ' ft (H) (' . $meta['area_sqft'] . ' sq.ft)');
+        $item->add_meta_data(__('Frame Finish', 'window-glass-customizer'), $meta['frame_name']);
+        if (!empty($meta['frame_profile'])) {
+            $item->add_meta_data(__('Frame Size / Profile', 'window-glass-customizer'), $meta['frame_profile']);
+        }
+        $item->add_meta_data(__('Glass Glazing', 'window-glass-customizer'), $meta['glass_name']);
+        $item->add_meta_data(__('Grid Pattern', 'window-glass-customizer'), $meta['grid_name']);
+        $item->add_meta_data(__('Hardware', 'window-glass-customizer'), $meta['handle_name']);
+        $item->add_meta_data(__('Unit Fabricated Price', 'window-glass-customizer'), '$' . number_format($meta['custom_price'], 2));
     }
 }
 add_action('woocommerce_checkout_create_order_line_item', 'vlogpulse_save_custom_window_order_item_meta', 10, 4);

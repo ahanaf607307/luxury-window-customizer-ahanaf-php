@@ -2444,6 +2444,49 @@ button, input, textarea, select {
     font-size: 0.78rem;
 }
 
+/* Frame Profile & Thickness Size Buttons */
+.frame-profile-btn {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 0.75rem 0.6rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    cursor: pointer;
+    color: var(--color-text-muted);
+    transition: var(--transition);
+    text-align: center;
+}
+
+.frame-profile-btn:hover {
+    border-color: rgba(212, 175, 55, 0.6);
+    background: rgba(255, 255, 255, 0.06);
+    color: #fff;
+}
+
+.frame-profile-btn.active {
+    background: rgba(212, 175, 55, 0.14);
+    border-color: var(--color-gold);
+    color: #fff;
+    box-shadow: 0 0 16px var(--color-gold-glow);
+}
+
+.frame-profile-btn strong {
+    font-size: 0.85rem;
+    color: #fff;
+}
+
+.frame-profile-btn.active strong {
+    color: var(--color-gold);
+}
+
+.frame-profile-btn small {
+    font-size: 0.72rem;
+    color: var(--color-gold-hover);
+}
+
 /* Dimensions Controls */
 .dimensions-control-grid {
     display: grid;

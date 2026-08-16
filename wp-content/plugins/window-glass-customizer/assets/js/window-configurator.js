@@ -19,6 +19,13 @@ document.addEventListener('DOMContentLoaded', function () {
             accent: '#27272a',
             ratePerFt: 8.00
         },
+        frameProfile: {
+            id: 'standard',
+            name: '2.5″ Standard Architectural',
+            thickness: 2.5,
+            strokeWidth: 18,
+            costPerFt: 3.00
+        },
         glass: {
             id: 'clear',
             name: 'Crystal Clear Tempered Glass',
@@ -47,6 +54,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const heightSlider = document.getElementById('window-height-slider');
     const heightInput = document.getElementById('window-height-input');
     const frameSwatches = studio.querySelectorAll('.frame-swatch-btn');
+    const frameProfileBtns = studio.querySelectorAll('.frame-profile-btn');
+    const frameThicknessSlider = document.getElementById('frame-thickness-slider');
+    const frameThicknessInput = document.getElementById('frame-thickness-input');
+    const frameThicknessBadge = document.getElementById('frame-thickness-badge');
     const glassSwatches = studio.querySelectorAll('.glass-swatch-btn');
     const modelButtons = studio.querySelectorAll('.grid-style-btn');
     const handleSwatches = studio.querySelectorAll('.handle-swatch-btn');
@@ -85,6 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const displayHeight = document.getElementById('display-dimension-h');
     const displayArea = document.getElementById('display-dimension-area');
     const displayModelName = document.getElementById('display-model-type');
+    const displayFrameProfile = document.getElementById('display-frame-profile');
     const displayGlassName = document.getElementById('display-glass-type');
     const displayFrameName = document.getElementById('display-frame-type');
     const displayTotalPrice = document.getElementById('display-total-price');
@@ -114,6 +126,54 @@ document.addEventListener('DOMContentLoaded', function () {
     if (heightSlider && heightInput) {
         heightSlider.addEventListener('input', () => updateDimensions(state.width, heightSlider.value));
         heightInput.addEventListener('change', () => updateDimensions(state.width, heightInput.value));
+    }
+
+    // 1.5 Frame Profile Thickness & Size Handlers
+    function updateFrameThickness(thickness, profileId = null, profileName = null, stroke = null, cost = null) {
+        const val = Math.max(1.0, Math.min(5.0, parseFloat(thickness) || 2.5));
+        state.frameProfile.thickness = val;
+        state.frameProfile.strokeWidth = stroke !== null ? stroke : Math.round(val * 7.2);
+        state.frameProfile.costPerFt = cost !== null ? cost : Math.max(0, (val - 1.5) * 3.33);
+
+        if (profileName) {
+            state.frameProfile.name = profileName;
+        } else {
+            state.frameProfile.name = `${val.toFixed(1)}″ Custom Profile`;
+        }
+
+        if (frameThicknessSlider) frameThicknessSlider.value = val;
+        if (frameThicknessInput) frameThicknessInput.value = val.toFixed(1);
+        if (frameThicknessBadge) frameThicknessBadge.textContent = state.frameProfile.name;
+        if (displayFrameProfile) displayFrameProfile.textContent = state.frameProfile.name;
+
+        renderSVG();
+        calculatePricing();
+    }
+
+    frameProfileBtns.forEach(btn => {
+        btn.addEventListener('click', function () {
+            frameProfileBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+
+            const pid = this.getAttribute('data-profile-id');
+            const pname = this.getAttribute('data-profile-name');
+            const thick = parseFloat(this.getAttribute('data-thickness')) || 2.5;
+            const stroke = parseInt(this.getAttribute('data-stroke-width'), 10) || 18;
+            const cost = parseFloat(this.getAttribute('data-profile-cost')) || 3.00;
+
+            updateFrameThickness(thick, pid, pname, stroke, cost);
+        });
+    });
+
+    if (frameThicknessSlider && frameThicknessInput) {
+        frameThicknessSlider.addEventListener('input', function () {
+            frameProfileBtns.forEach(b => b.classList.remove('active'));
+            updateFrameThickness(this.value);
+        });
+        frameThicknessInput.addEventListener('change', function () {
+            frameProfileBtns.forEach(b => b.classList.remove('active'));
+            updateFrameThickness(this.value);
+        });
     }
 
     // 2. Frame Swatch Selector (Strictly changes frame color only)
@@ -312,9 +372,11 @@ document.addEventListener('DOMContentLoaded', function () {
             svgStage.setAttribute('viewBox', `0 0 360 ${clampedHeight}`);
         }
 
-        // Master Outer Frame Casing (Layered firmly on top of sashes)
+        // Master Outer Frame Casing (Layered firmly on top of sashes with dynamic stroke width)
+        const frameStroke = state.frameProfile.strokeWidth || 18;
         if (svgFrameOuter) {
             svgFrameOuter.setAttribute('stroke', state.frame.color);
+            svgFrameOuter.setAttribute('stroke-width', frameStroke);
             svgFrameOuter.setAttribute('height', clampedHeight - 20);
         }
         const svgFrameBezel = document.getElementById('svg-frame-bezel');
@@ -434,6 +496,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (displayHeight) displayHeight.textContent = `${state.height.toFixed(1)} ft`;
         if (displayArea) displayArea.textContent = `${(state.width * state.height).toFixed(1)} sq.ft`;
         if (displayModelName) displayModelName.textContent = state.model.name;
+        if (displayFrameProfile) displayFrameProfile.textContent = state.frameProfile.name;
         if (displayGlassName) displayGlassName.textContent = state.glass.name;
         if (displayFrameName) displayFrameName.textContent = state.frame.name;
     }
@@ -505,7 +568,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const perimeterFt = 2 * (state.width + state.height);
 
         const glassCost = areaSqft * state.glass.ratePerSqft;
-        const frameCost = perimeterFt * state.frame.ratePerFt;
+        const frameCost = perimeterFt * (state.frame.ratePerFt + state.frameProfile.costPerFt);
         const modelCost = state.model.cost;
         const hardwareCost = state.hardware.cost;
 
@@ -554,6 +617,8 @@ document.addEventListener('DOMContentLoaded', function () {
             postData.append('height', state.height);
             postData.append('area_sqft', (state.width * state.height).toFixed(2));
             postData.append('frame_name', state.frame.name);
+            postData.append('frame_profile', state.frameProfile.name);
+            postData.append('frame_thickness', state.frameProfile.thickness);
             postData.append('glass_name', state.glass.name);
             postData.append('grid_name', state.model.name);
             postData.append('handle_name', state.hardware.name);

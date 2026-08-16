@@ -170,6 +170,10 @@ get_header();
                             <span class="spec-val" id="display-model-type"><?php esc_html_e('Double Casement (Door Open/Close)', 'luxury-window'); ?></span>
                         </div>
                         <div class="live-spec-item">
+                            <span class="spec-label"><?php esc_html_e('Frame Size:', 'luxury-window'); ?></span>
+                            <span class="spec-val" id="display-frame-profile">2.5″ Standard Architectural</span>
+                        </div>
+                        <div class="live-spec-item">
                             <span class="spec-label"><?php esc_html_e('Frame Finish:', 'luxury-window'); ?></span>
                             <span class="spec-val" id="display-frame-type">Obsidian Matte Black Aluminium</span>
                         </div>
@@ -260,6 +264,65 @@ get_header();
                                     <span class="swatch-subtitle"><?php esc_html_e('Clean Minimalist ($7/ft)', 'luxury-window'); ?></span>
                                 </div>
                             </button>
+
+                        </div>
+
+                        <!-- Sub-Section: Frame Profile Thickness & Width Size -->
+                        <div class="frame-profile-section" style="margin-top: 1.4rem; padding-top: 1.2rem; border-top: 1px solid rgba(255,255,255,0.08);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
+                                <label style="font-size: 0.9rem; font-weight: 700; color: #ffffff;">
+                                    📐 <?php esc_html_e('Frame Profile Thickness / Size (ফ্রেম সাইজ)', 'luxury-window'); ?>
+                                </label>
+                                <span id="frame-thickness-badge" style="font-size: 0.82rem; font-weight: 700; color: var(--color-gold); background: rgba(212,175,55,0.12); padding: 0.2rem 0.6rem; border-radius: 4px; border: 1px solid var(--color-gold-hover);">
+                                    2.5″ Standard Architectural
+                                </span>
+                            </div>
+
+                            <!-- Quick Preset Profile Buttons -->
+                            <div class="frame-profile-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(135px, 1fr)); gap: 0.6rem; margin-bottom: 1rem;">
+                                
+                                <button type="button" class="frame-profile-btn" data-profile-id="slim" data-profile-name="1.5″ Slimline Minimalist" data-thickness="1.5" data-stroke-width="10" data-profile-cost="0.00">
+                                    <span style="font-size: 1.1rem;">🔲</span>
+                                    <strong>1.5″ Slimline</strong>
+                                    <small><?php esc_html_e('Max Glass (+$0)', 'luxury-window'); ?></small>
+                                </button>
+
+                                <button type="button" class="frame-profile-btn active" data-profile-id="standard" data-profile-name="2.5″ Standard Architectural" data-thickness="2.5" data-stroke-width="18" data-profile-cost="3.00">
+                                    <span style="font-size: 1.1rem;">🖼️</span>
+                                    <strong>2.5″ Standard</strong>
+                                    <small><?php esc_html_e('Balanced (+$3/ft)', 'luxury-window'); ?></small>
+                                </button>
+
+                                <button type="button" class="frame-profile-btn" data-profile-id="heavy" data-profile-name="3.5″ Heavy-Duty Thermal" data-thickness="3.5" data-stroke-width="26" data-profile-cost="6.00">
+                                    <span style="font-size: 1.1rem;">🧱</span>
+                                    <strong>3.5″ Heavy</strong>
+                                    <small><?php esc_html_e('Thermal (+$6/ft)', 'luxury-window'); ?></small>
+                                </button>
+
+                                <button type="button" class="frame-profile-btn" data-profile-id="bold" data-profile-name="4.5″ Bold Grand Estate" data-thickness="4.5" data-stroke-width="34" data-profile-cost="10.00">
+                                    <span style="font-size: 1.1rem;">🏛️</span>
+                                    <strong>4.5″ Grand Bold</strong>
+                                    <small><?php esc_html_e('Estate (+$10/ft)', 'luxury-window'); ?></small>
+                                </button>
+
+                            </div>
+
+                            <!-- Custom Thickness Slider -->
+                            <div class="dim-control-card" style="padding: 0.9rem 1.1rem;">
+                                <div class="dim-header" style="margin-bottom: 0.4rem;">
+                                    <label for="frame-thickness-slider" style="font-size: 0.85rem;"><?php esc_html_e('Custom Frame Thickness Slider', 'luxury-window'); ?></label>
+                                    <div class="dim-input-wrap">
+                                        <input type="number" id="frame-thickness-input" min="1.0" max="5.0" step="0.5" value="2.5" />
+                                        <span>in</span>
+                                    </div>
+                                </div>
+                                <input type="range" id="frame-thickness-slider" min="1.0" max="5.0" step="0.5" value="2.5" class="custom-range-slider" />
+                                <div class="range-labels">
+                                    <span>1.0″ (Ultra Slim)</span>
+                                    <span>2.5″ (Standard)</span>
+                                    <span>5.0″ (Max Bold)</span>
+                                </div>
+                            </div>
 
                         </div>
                     </div>
