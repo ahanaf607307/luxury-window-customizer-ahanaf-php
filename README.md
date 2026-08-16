@@ -1,13 +1,13 @@
-# 🪟 LuxePane — Luxury Architectural Glass & Window Systems WordPress Suite
+# 🪟 Luxury Window — Architectural Glass & Window Systems WordPress Suite
 
 [![WordPress](https://img.shields.io/badge/WordPress-6.0%2B-blue.svg)](https://wordpress.org)
 [![WooCommerce](https://img.shields.io/badge/WooCommerce-Active-purple.svg)](https://woocommerce.com)
 [![PHP](https://img.shields.io/badge/PHP-7.4%2B-green.svg)](https://php.net)
 [![License: GPL-2.0+](https://img.shields.io/badge/License-GPL--2.0%2B-gold.svg)](http://www.gnu.org/licenses/gpl-2.0.html)
 
-**LuxePane** is an industry-grade, commercial WordPress Theme and Companion Plugin suite engineered specifically for architectural glass, bespoke sliding windows, acoustic glazing, and luxury aluminium frame manufacturing businesses.
+**Luxury Window** is an industry-grade, commercial WordPress Theme and Companion Plugin (`window-glass-customizer`) suite engineered specifically for architectural glass, bespoke sliding windows, acoustic glazing, and luxury aluminium frame manufacturing businesses.
 
-Featuring a **real-time 2D SVG Window Studio visualizer**, **live mathematical pricing engine**, and direct **WooCommerce synchronization**, LuxePane allows clients to custom engineer windows and purchase them directly through an automated e-commerce workflow.
+Featuring a **real-time 2D SVG Window Studio visualizer**, **live mathematical pricing engine**, and direct **WooCommerce synchronization**, Luxury Window allows clients to custom engineer windows and purchase them directly through an automated e-commerce workflow.
 
 ---
 
@@ -45,10 +45,10 @@ $$\text{Total Price} = \$50\text{ (Base Assembly)} + (\text{Area (sq.ft)} \times
 ## 📂 Repository Structure
 
 ```
-luxepane-suite/
+luxury-window-suite/
 ├── wp-content/
 │   ├── themes/
-│   │   └── luxepane/                      # Luxury WordPress Theme (Presentation Layer)
+│   │   └── luxury-window/                 # Theme Presentation Layer (Luxury Window)
 │   │       ├── assets/
 │   │       │   ├── css/main.css           # Luxury Black & Gold Design System & Window Studio CSS
 │   │       │   └── js/main.js             # Frontend Navigation & Modal UI Scripts
@@ -60,12 +60,12 @@ luxepane-suite/
 │   │       ├── page-contact.php           # Inquiries & Project Collaboration Template
 │   │       ├── woocommerce.php            # WooCommerce Global Template Wrapper
 │   │       ├── single.php                 # Single Post & Case Study Player Template
-│   │       ├── header.php                 # Header Navigation, LuxePane Logo & Mini-Cart
+│   │       ├── header.php                 # Header Navigation, Luxury Window Logo & Mini-Cart
 │   │       ├── footer.php                 # Footer Widgets & Auth Modal
-│   │       └── style.css                  # Theme Header Declaration (LuxePane)
+│   │       └── style.css                  # Theme Header Declaration (Luxury Window)
 │   │
 │   └── plugins/
-│       └── luxepane-core/                 # Core Companion Plugin (Business Logic Layer)
+│       └── window-glass-customizer/       # Companion Plugin (Business Logic Layer)
 │           ├── includes/
 │           │   ├── window-configurator.php# Custom Window Math Engine & WooCommerce Cart Hooks
 │           │   ├── meta-boxes.php         # Video URL Meta Box & Player Generators
@@ -78,7 +78,7 @@ luxepane-suite/
 │           │       ├── likes.js           # Real-Time AJAX Likes
 │           │       ├── auth.js            # User Authentication Engine
 │           │       └── post-submission.js # Media Upload & Publishing Handler
-│           └── luxepane-core.php          # Plugin Bootstrap Loader
+│           └── window-glass-customizer.php# Plugin Bootstrap Loader (Window Glass Customizer)
 │
 ├── .gitignore                             # Clean Git Tracking Rules
 └── README.md                              # Technical Documentation
@@ -89,12 +89,12 @@ luxepane-suite/
 ## 🚀 Quick Setup & Installation
 
 1. **Theme Installation:**
-   * Copy `wp-content/themes/luxepane/` into your WordPress installation's `wp-content/themes/` directory.
-   * Go to **WP Admin > Appearance > Themes** and activate **LuxePane**.
+   * Copy `wp-content/themes/luxury-window/` into your WordPress installation's `wp-content/themes/` directory.
+   * Go to **WP Admin > Appearance > Themes** and activate **Luxury Window**.
 
 2. **Companion Plugin Installation:**
-   * Copy `wp-content/plugins/luxepane-core/` into your `wp-content/plugins/` directory.
-   * Go to **WP Admin > Plugins** and activate **LuxePane Core**.
+   * Copy `wp-content/plugins/window-glass-customizer/` into your `wp-content/plugins/` directory.
+   * Go to **WP Admin > Plugins** and activate **Window Glass Customizer**.
 
 3. **WooCommerce Setup:**
    * Install and activate **WooCommerce** to enable the product catalog, cart, and Window Studio order checkout.
