@@ -190,9 +190,22 @@ get_header();
                  RIGHT PANE: Step-by-Step Configurator Options & Controls
                  ================================================================= -->
             <div class="controls-col">
-                <div class="controls-card">
-                    
-                    <!-- STEP 1: Frame Finish & Material (8 Extra Colors) -->
+            <?php
+                    $rates = function_exists('luxury_window_get_pricing_rates') ? luxury_window_get_pricing_rates() : array(
+                        'base_fee' => 50.00,
+                        'frame_black' => 8.00, 'frame_gold' => 14.00, 'frame_chrome' => 10.00, 'frame_bronze' => 12.00,
+                        'frame_wood' => 13.00, 'frame_navy' => 11.00, 'frame_emerald' => 11.00, 'frame_white' => 7.00,
+                        'profile_slim' => 0.00, 'profile_standard' => 3.00, 'profile_heavy' => 6.00, 'profile_bold' => 10.00,
+                        'glass_clear' => 12.00, 'glass_frosted' => 16.00, 'glass_bronze' => 18.00, 'glass_obsidian' => 22.00,
+                        'glass_acoustic' => 28.00, 'glass_lowe' => 25.00, 'glass_ocean' => 20.00,
+                        'model_casement' => 35.00, 'model_four_grid' => 45.00, 'model_six_grid' => 60.00,
+                        'model_sliding' => 25.00, 'model_sliding_colonial' => 45.00, 'model_eight_grid' => 75.00,
+                        'model_single' => 0.00, 'model_four_grid_fixed' => 35.00,
+                        'handle_gold' => 45.00, 'handle_black' => 35.00, 'handle_chrome' => 40.00, 'handle_bronze' => 40.00,
+                    );
+                    ?>
+
+                    <!-- STEP 1: Frame Finish & Material (8 Extra Colors - Dynamic Admin Rates) -->
                     <div class="config-step-box">
                         <div class="step-badge">
                             <span class="step-num">1</span>
@@ -201,73 +214,73 @@ get_header();
                         
                         <div class="swatch-grid">
                             
-                            <button type="button" class="swatch-btn frame-swatch-btn active" data-frame-id="black" data-frame-name="Obsidian Matte Black Aluminium" data-frame-color="#18181b" data-frame-accent="#27272a" data-frame-rate="8.00">
+                            <button type="button" class="swatch-btn frame-swatch-btn active" data-frame-id="black" data-frame-name="Obsidian Matte Black Aluminium" data-frame-color="#18181b" data-frame-accent="#27272a" data-frame-rate="<?php echo esc_attr($rates['frame_black']); ?>">
                                 <span class="swatch-color" style="background: #18181b; border: 1px solid #3f3f46;"></span>
                                 <div class="swatch-info">
                                     <span class="swatch-title"><?php esc_html_e('Obsidian Black', 'luxury-window'); ?></span>
-                                    <span class="swatch-subtitle"><?php esc_html_e('Heavy Aluminium ($8/ft)', 'luxury-window'); ?></span>
+                                    <span class="swatch-subtitle"><?php printf(esc_html__('Heavy Aluminium ($%s/ft)', 'luxury-window'), esc_html(number_format($rates['frame_black'], 2))); ?></span>
                                 </div>
                             </button>
 
-                            <button type="button" class="swatch-btn frame-swatch-btn" data-frame-id="gold" data-frame-name="Metallic Champagne Gold Aluminium" data-frame-color="#d4af37" data-frame-accent="#e5c05b" data-frame-rate="14.00">
+                            <button type="button" class="swatch-btn frame-swatch-btn" data-frame-id="gold" data-frame-name="Metallic Champagne Gold Aluminium" data-frame-color="#d4af37" data-frame-accent="#e5c05b" data-frame-rate="<?php echo esc_attr($rates['frame_gold']); ?>">
                                 <span class="swatch-color" style="background: linear-gradient(135deg, #d4af37, #fef08a); border: 1px solid #d4af37;"></span>
                                 <div class="swatch-info">
                                     <span class="swatch-title"><?php esc_html_e('Champagne Gold', 'luxury-window'); ?></span>
-                                    <span class="swatch-subtitle"><?php esc_html_e('Luxury Anodized ($14/ft)', 'luxury-window'); ?></span>
+                                    <span class="swatch-subtitle"><?php printf(esc_html__('Luxury Anodized ($%s/ft)', 'luxury-window'), esc_html(number_format($rates['frame_gold'], 2))); ?></span>
                                 </div>
                             </button>
 
-                            <button type="button" class="swatch-btn frame-swatch-btn" data-frame-id="chrome" data-frame-name="Brushed Silver Chrome Aluminium" data-frame-color="#94a3b8" data-frame-accent="#cbd5e1" data-frame-rate="10.00">
+                            <button type="button" class="swatch-btn frame-swatch-btn" data-frame-id="chrome" data-frame-name="Brushed Silver Chrome Aluminium" data-frame-color="#94a3b8" data-frame-accent="#cbd5e1" data-frame-rate="<?php echo esc_attr($rates['frame_chrome']); ?>">
                                 <span class="swatch-color" style="background: linear-gradient(135deg, #94a3b8, #f1f5f9); border: 1px solid #cbd5e1;"></span>
                                 <div class="swatch-info">
                                     <span class="swatch-title"><?php esc_html_e('Brushed Chrome', 'luxury-window'); ?></span>
-                                    <span class="swatch-subtitle"><?php esc_html_e('Modern Finish ($10/ft)', 'luxury-window'); ?></span>
+                                    <span class="swatch-subtitle"><?php printf(esc_html__('Modern Finish ($%s/ft)', 'luxury-window'), esc_html(number_format($rates['frame_chrome'], 2))); ?></span>
                                 </div>
                             </button>
 
-                            <button type="button" class="swatch-btn frame-swatch-btn" data-frame-id="bronze" data-frame-name="Architectural Dark Bronze" data-frame-color="#78350f" data-frame-accent="#92400e" data-frame-rate="12.00">
+                            <button type="button" class="swatch-btn frame-swatch-btn" data-frame-id="bronze" data-frame-name="Architectural Dark Bronze" data-frame-color="#78350f" data-frame-accent="#92400e" data-frame-rate="<?php echo esc_attr($rates['frame_bronze']); ?>">
                                 <span class="swatch-color" style="background: linear-gradient(135deg, #78350f, #451a03); border: 1px solid #92400e;"></span>
                                 <div class="swatch-info">
                                     <span class="swatch-title"><?php esc_html_e('Architectural Bronze', 'luxury-window'); ?></span>
-                                    <span class="swatch-subtitle"><?php esc_html_e('Classic Metal ($12/ft)', 'luxury-window'); ?></span>
+                                    <span class="swatch-subtitle"><?php printf(esc_html__('Classic Metal ($%s/ft)', 'luxury-window'), esc_html(number_format($rates['frame_bronze'], 2))); ?></span>
                                 </div>
                             </button>
 
-                            <button type="button" class="swatch-btn frame-swatch-btn" data-frame-id="wood" data-frame-name="Walnut Architectural Woodgrain" data-frame-color="#452c1e" data-frame-accent="#5c3d2e" data-frame-rate="13.00">
+                            <button type="button" class="swatch-btn frame-swatch-btn" data-frame-id="wood" data-frame-name="Walnut Architectural Woodgrain" data-frame-color="#452c1e" data-frame-accent="#5c3d2e" data-frame-rate="<?php echo esc_attr($rates['frame_wood']); ?>">
                                 <span class="swatch-color" style="background: #452c1e; border: 1px solid #78350f;"></span>
                                 <div class="swatch-info">
                                     <span class="swatch-title"><?php esc_html_e('Walnut Woodgrain', 'luxury-window'); ?></span>
-                                    <span class="swatch-subtitle"><?php esc_html_e('Natural Texture ($13/ft)', 'luxury-window'); ?></span>
+                                    <span class="swatch-subtitle"><?php printf(esc_html__('Natural Texture ($%s/ft)', 'luxury-window'), esc_html(number_format($rates['frame_wood'], 2))); ?></span>
                                 </div>
                             </button>
 
-                            <button type="button" class="swatch-btn frame-swatch-btn" data-frame-id="navy" data-frame-name="Midnight Royal Navy Blue" data-frame-color="#1e293b" data-frame-accent="#334155" data-frame-rate="11.00">
+                            <button type="button" class="swatch-btn frame-swatch-btn" data-frame-id="navy" data-frame-name="Midnight Royal Navy Blue" data-frame-color="#1e293b" data-frame-accent="#334155" data-frame-rate="<?php echo esc_attr($rates['frame_navy']); ?>">
                                 <span class="swatch-color" style="background: #1e293b; border: 1px solid #38bdf8;"></span>
                                 <div class="swatch-info">
                                     <span class="swatch-title"><?php esc_html_e('Royal Navy', 'luxury-window'); ?></span>
-                                    <span class="swatch-subtitle"><?php esc_html_e('Deep Matte Finish ($11/ft)', 'luxury-window'); ?></span>
+                                    <span class="swatch-subtitle"><?php printf(esc_html__('Deep Matte Finish ($%s/ft)', 'luxury-window'), esc_html(number_format($rates['frame_navy'], 2))); ?></span>
                                 </div>
                             </button>
 
-                            <button type="button" class="swatch-btn frame-swatch-btn" data-frame-id="emerald" data-frame-name="Forest Emerald Green" data-frame-color="#064e3b" data-frame-accent="#047857" data-frame-rate="11.00">
+                            <button type="button" class="swatch-btn frame-swatch-btn" data-frame-id="emerald" data-frame-name="Forest Emerald Green" data-frame-color="#064e3b" data-frame-accent="#047857" data-frame-rate="<?php echo esc_attr($rates['frame_emerald']); ?>">
                                 <span class="swatch-color" style="background: #064e3b; border: 1px solid #10b981;"></span>
                                 <div class="swatch-info">
                                     <span class="swatch-title"><?php esc_html_e('Forest Emerald', 'luxury-window'); ?></span>
-                                    <span class="swatch-subtitle"><?php esc_html_e('Heritage Green ($11/ft)', 'luxury-window'); ?></span>
+                                    <span class="swatch-subtitle"><?php printf(esc_html__('Heritage Green ($%s/ft)', 'luxury-window'), esc_html(number_format($rates['frame_emerald'], 2))); ?></span>
                                 </div>
                             </button>
 
-                            <button type="button" class="swatch-btn frame-swatch-btn" data-frame-id="white" data-frame-name="Arctic Matte White Poly" data-frame-color="#f8fafc" data-frame-accent="#e2e8f0" data-frame-rate="7.00">
+                            <button type="button" class="swatch-btn frame-swatch-btn" data-frame-id="white" data-frame-name="Arctic Matte White Poly" data-frame-color="#f8fafc" data-frame-accent="#e2e8f0" data-frame-rate="<?php echo esc_attr($rates['frame_white']); ?>">
                                 <span class="swatch-color" style="background: #f8fafc; border: 1px solid #cbd5e1;"></span>
                                 <div class="swatch-info">
                                     <span class="swatch-title"><?php esc_html_e('Arctic White', 'luxury-window'); ?></span>
-                                    <span class="swatch-subtitle"><?php esc_html_e('Clean Minimalist ($7/ft)', 'luxury-window'); ?></span>
+                                    <span class="swatch-subtitle"><?php printf(esc_html__('Clean Minimalist ($%s/ft)', 'luxury-window'), esc_html(number_format($rates['frame_white'], 2))); ?></span>
                                 </div>
                             </button>
 
                         </div>
 
-                        <!-- Sub-Section: Frame Profile Thickness & Width Size -->
+                        <!-- Sub-Section: Frame Profile Thickness & Width Size (Dynamic Admin Rates) -->
                         <div class="frame-profile-section" style="margin-top: 1.4rem; padding-top: 1.2rem; border-top: 1px solid rgba(255,255,255,0.08);">
                             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
                                 <label style="font-size: 0.9rem; font-weight: 700; color: #ffffff;">
@@ -281,28 +294,28 @@ get_header();
                             <!-- Quick Preset Profile Buttons -->
                             <div class="frame-profile-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(135px, 1fr)); gap: 0.6rem; margin-bottom: 1rem;">
                                 
-                                <button type="button" class="frame-profile-btn" data-profile-id="slim" data-profile-name="1.5″ Slimline Minimalist" data-thickness="1.5" data-stroke-width="10" data-profile-cost="0.00">
+                                <button type="button" class="frame-profile-btn" data-profile-id="slim" data-profile-name="1.5″ Slimline Minimalist" data-thickness="1.5" data-stroke-width="10" data-profile-cost="<?php echo esc_attr($rates['profile_slim']); ?>">
                                     <span style="font-size: 1.1rem;">🔲</span>
                                     <strong>1.5″ Slimline</strong>
-                                    <small><?php esc_html_e('Max Glass (+$0)', 'luxury-window'); ?></small>
+                                    <small><?php printf(esc_html__('Max Glass (+$%s)', 'luxury-window'), esc_html(number_format($rates['profile_slim'], 2))); ?></small>
                                 </button>
 
-                                <button type="button" class="frame-profile-btn active" data-profile-id="standard" data-profile-name="2.5″ Standard Architectural" data-thickness="2.5" data-stroke-width="18" data-profile-cost="3.00">
+                                <button type="button" class="frame-profile-btn active" data-profile-id="standard" data-profile-name="2.5″ Standard Architectural" data-thickness="2.5" data-stroke-width="18" data-profile-cost="<?php echo esc_attr($rates['profile_standard']); ?>">
                                     <span style="font-size: 1.1rem;">🖼️</span>
                                     <strong>2.5″ Standard</strong>
-                                    <small><?php esc_html_e('Balanced (+$3/ft)', 'luxury-window'); ?></small>
+                                    <small><?php printf(esc_html__('Balanced (+$%s/ft)', 'luxury-window'), esc_html(number_format($rates['profile_standard'], 2))); ?></small>
                                 </button>
 
-                                <button type="button" class="frame-profile-btn" data-profile-id="heavy" data-profile-name="3.5″ Heavy-Duty Thermal" data-thickness="3.5" data-stroke-width="26" data-profile-cost="6.00">
+                                <button type="button" class="frame-profile-btn" data-profile-id="heavy" data-profile-name="3.5″ Heavy-Duty Thermal" data-thickness="3.5" data-stroke-width="26" data-profile-cost="<?php echo esc_attr($rates['profile_heavy']); ?>">
                                     <span style="font-size: 1.1rem;">🧱</span>
                                     <strong>3.5″ Heavy</strong>
-                                    <small><?php esc_html_e('Thermal (+$6/ft)', 'luxury-window'); ?></small>
+                                    <small><?php printf(esc_html__('Thermal (+$%s/ft)', 'luxury-window'), esc_html(number_format($rates['profile_heavy'], 2))); ?></small>
                                 </button>
 
-                                <button type="button" class="frame-profile-btn" data-profile-id="bold" data-profile-name="4.5″ Bold Grand Estate" data-thickness="4.5" data-stroke-width="34" data-profile-cost="10.00">
+                                <button type="button" class="frame-profile-btn" data-profile-id="bold" data-profile-name="4.5″ Bold Grand Estate" data-thickness="4.5" data-stroke-width="34" data-profile-cost="<?php echo esc_attr($rates['profile_bold']); ?>">
                                     <span style="font-size: 1.1rem;">🏛️</span>
                                     <strong>4.5″ Grand Bold</strong>
-                                    <small><?php esc_html_e('Estate (+$10/ft)', 'luxury-window'); ?></small>
+                                    <small><?php printf(esc_html__('Estate (+$%s/ft)', 'luxury-window'), esc_html(number_format($rates['profile_bold'], 2))); ?></small>
                                 </button>
 
                             </div>
@@ -327,7 +340,7 @@ get_header();
                         </div>
                     </div>
 
-                    <!-- STEP 2: Glass Glazing & Performance (7 Extra Glazes) -->
+                    <!-- STEP 2: Glass Glazing & Performance (7 Dynamic Admin Rates) -->
                     <div class="config-step-box">
                         <div class="step-badge">
                             <span class="step-num">2</span>
@@ -336,59 +349,59 @@ get_header();
 
                         <div class="swatch-grid">
                             
-                            <button type="button" class="swatch-btn glass-swatch-btn active" data-glass-id="clear" data-glass-name="Crystal Clear Tempered Glass" data-glass-fill="url(#glassClearGrad)" data-glass-rate="12.00">
+                            <button type="button" class="swatch-btn glass-swatch-btn active" data-glass-id="clear" data-glass-name="Crystal Clear Tempered Glass" data-glass-fill="url(#glassClearGrad)" data-glass-rate="<?php echo esc_attr($rates['glass_clear']); ?>">
                                 <span class="swatch-color glass-preview-circle" style="background: linear-gradient(135deg, rgba(255,255,255,0.7), rgba(56,189,248,0.3));"></span>
                                 <div class="swatch-info">
                                     <span class="swatch-title"><?php esc_html_e('Clear Tempered', 'luxury-window'); ?></span>
-                                    <span class="swatch-subtitle"><?php esc_html_e('High Clarity ($12/sqft)', 'luxury-window'); ?></span>
+                                    <span class="swatch-subtitle"><?php printf(esc_html__('High Clarity ($%s/sqft)', 'luxury-window'), esc_html(number_format($rates['glass_clear'], 2))); ?></span>
                                 </div>
                             </button>
 
-                            <button type="button" class="swatch-btn glass-swatch-btn" data-glass-id="frosted" data-glass-name="Frosted Privacy Glass" data-glass-fill="url(#glassFrostedGrad)" data-glass-rate="16.00">
+                            <button type="button" class="swatch-btn glass-swatch-btn" data-glass-id="frosted" data-glass-name="Frosted Privacy Glass" data-glass-fill="url(#glassFrostedGrad)" data-glass-rate="<?php echo esc_attr($rates['glass_frosted']); ?>">
                                 <span class="swatch-color glass-preview-circle" style="background: rgba(226,232,240,0.8); backdrop-filter: blur(8px);"></span>
                                 <div class="swatch-info">
                                     <span class="swatch-title"><?php esc_html_e('Frosted Privacy', 'luxury-window'); ?></span>
-                                    <span class="swatch-subtitle"><?php esc_html_e('Diffused Light ($16/sqft)', 'luxury-window'); ?></span>
+                                    <span class="swatch-subtitle"><?php printf(esc_html__('Diffused Light ($%s/sqft)', 'luxury-window'), esc_html(number_format($rates['glass_frosted'], 2))); ?></span>
                                 </div>
                             </button>
 
-                            <button type="button" class="swatch-btn glass-swatch-btn" data-glass-id="bronze" data-glass-name="Tinted Bronze Solar Glass" data-glass-fill="url(#glassBronzeGrad)" data-glass-rate="18.00">
+                            <button type="button" class="swatch-btn glass-swatch-btn" data-glass-id="bronze" data-glass-name="Tinted Bronze Solar Glass" data-glass-fill="url(#glassBronzeGrad)" data-glass-rate="<?php echo esc_attr($rates['glass_bronze']); ?>">
                                 <span class="swatch-color glass-preview-circle" style="background: linear-gradient(135deg, #b45309, #78350f);"></span>
                                 <div class="swatch-info">
                                     <span class="swatch-title"><?php esc_html_e('Tinted Bronze', 'luxury-window'); ?></span>
-                                    <span class="swatch-subtitle"><?php esc_html_e('Solar Heat Block ($18/sqft)', 'luxury-window'); ?></span>
+                                    <span class="swatch-subtitle"><?php printf(esc_html__('Solar Heat Block ($%s/sqft)', 'luxury-window'), esc_html(number_format($rates['glass_bronze'], 2))); ?></span>
                                 </div>
                             </button>
 
-                            <button type="button" class="swatch-btn glass-swatch-btn" data-glass-id="obsidian" data-glass-name="Obsidian Dark Reflective Glass" data-glass-fill="url(#glassObsidianGrad)" data-glass-rate="22.00">
+                            <button type="button" class="swatch-btn glass-swatch-btn" data-glass-id="obsidian" data-glass-name="Obsidian Dark Reflective Glass" data-glass-fill="url(#glassObsidianGrad)" data-glass-rate="<?php echo esc_attr($rates['glass_obsidian']); ?>">
                                 <span class="swatch-color glass-preview-circle" style="background: linear-gradient(135deg, #27272a, #09090b);"></span>
                                 <div class="swatch-info">
                                     <span class="swatch-title"><?php esc_html_e('Obsidian Reflective', 'luxury-window'); ?></span>
-                                    <span class="swatch-subtitle"><?php esc_html_e('1-Way Mirror ($22/sqft)', 'luxury-window'); ?></span>
+                                    <span class="swatch-subtitle"><?php printf(esc_html__('1-Way Mirror ($%s/sqft)', 'luxury-window'), esc_html(number_format($rates['glass_obsidian'], 2))); ?></span>
                                 </div>
                             </button>
 
-                            <button type="button" class="swatch-btn glass-swatch-btn" data-glass-id="acoustic" data-glass-name="Acoustic Double-Glazed Glass" data-glass-fill="url(#glassAcousticGrad)" data-glass-rate="28.00">
+                            <button type="button" class="swatch-btn glass-swatch-btn" data-glass-id="acoustic" data-glass-name="Acoustic Double-Glazed Glass" data-glass-fill="url(#glassAcousticGrad)" data-glass-rate="<?php echo esc_attr($rates['glass_acoustic']); ?>">
                                 <span class="swatch-color glass-preview-circle" style="background: linear-gradient(135deg, #38bdf8, #818cf8);"></span>
                                 <div class="swatch-info">
                                     <span class="swatch-title"><?php esc_html_e('Acoustic Double-Glazed', 'luxury-window'); ?></span>
-                                    <span class="swatch-subtitle"><?php esc_html_e('Max Soundproofing ($28/sqft)', 'luxury-window'); ?></span>
+                                    <span class="swatch-subtitle"><?php printf(esc_html__('Max Soundproofing ($%s/sqft)', 'luxury-window'), esc_html(number_format($rates['glass_acoustic'], 2))); ?></span>
                                 </div>
                             </button>
 
-                            <button type="button" class="swatch-btn glass-swatch-btn" data-glass-id="lowe" data-glass-name="Low-E High Thermal Saver Glaze" data-glass-fill="url(#glassLowEGrad)" data-glass-rate="25.00">
+                            <button type="button" class="swatch-btn glass-swatch-btn" data-glass-id="lowe" data-glass-name="Low-E High Thermal Saver Glaze" data-glass-fill="url(#glassLowEGrad)" data-glass-rate="<?php echo esc_attr($rates['glass_lowe']); ?>">
                                 <span class="swatch-color glass-preview-circle" style="background: linear-gradient(135deg, #10b981, #047857);"></span>
                                 <div class="swatch-info">
                                     <span class="swatch-title"><?php esc_html_e('Low-E Thermal Saver', 'luxury-window'); ?></span>
-                                    <span class="swatch-subtitle"><?php esc_html_e('Eco Energy Shield ($25/sqft)', 'luxury-window'); ?></span>
+                                    <span class="swatch-subtitle"><?php printf(esc_html__('Eco Energy Shield ($%s/sqft)', 'luxury-window'), esc_html(number_format($rates['glass_lowe'], 2))); ?></span>
                                 </div>
                             </button>
 
-                            <button type="button" class="swatch-btn glass-swatch-btn" data-glass-id="ocean" data-glass-name="Ocean Blue Solar Glaze" data-glass-fill="url(#glassOceanBlueGrad)" data-glass-rate="20.00">
+                            <button type="button" class="swatch-btn glass-swatch-btn" data-glass-id="ocean" data-glass-name="Ocean Blue Solar Glaze" data-glass-fill="url(#glassOceanBlueGrad)" data-glass-rate="<?php echo esc_attr($rates['glass_ocean']); ?>">
                                 <span class="swatch-color glass-preview-circle" style="background: linear-gradient(135deg, #0284c7, #075985);"></span>
                                 <div class="swatch-info">
                                     <span class="swatch-title"><?php esc_html_e('Ocean Blue Solar', 'luxury-window'); ?></span>
-                                    <span class="swatch-subtitle"><?php esc_html_e('Coastal Glare Cut ($20/sqft)', 'luxury-window'); ?></span>
+                                    <span class="swatch-subtitle"><?php printf(esc_html__('Coastal Glare Cut ($%s/sqft)', 'luxury-window'), esc_html(number_format($rates['glass_ocean'], 2))); ?></span>
                                 </div>
                             </button>
 
@@ -475,71 +488,71 @@ get_header();
                             </button>
                         </div>
 
-                        <!-- Category A: Door Open/Close Models -->
+                        <!-- Category A: Door Open/Close Models (Dynamic Admin Rates) -->
                         <div id="category-models-door" class="mechanism-models-grid grid-style-selector active-category">
                             
-                            <button type="button" class="grid-style-btn active" data-category="door" data-model-id="casement" data-model-name="Double Casement French Doors" data-model-mechanism="door" data-grid-cost="35.00">
+                            <button type="button" class="grid-style-btn active" data-category="door" data-model-id="casement" data-model-name="Double Casement French Doors" data-model-mechanism="door" data-grid-cost="<?php echo esc_attr($rates['model_casement']); ?>">
                                 <span class="grid-icon">🚪</span>
                                 <span><?php esc_html_e('Double Casement Doors', 'luxury-window'); ?></span>
-                                <small><?php esc_html_e('Dual Handles Included (+$35)', 'luxury-window'); ?></small>
+                                <small><?php printf(esc_html__('Dual Handles Included (+$%s)', 'luxury-window'), esc_html(number_format($rates['model_casement'], 2))); ?></small>
                             </button>
 
-                            <button type="button" class="grid-style-btn" data-category="door" data-model-id="four-grid" data-model-name="4-Grid Colonial French Doors" data-model-mechanism="door" data-grid-cost="45.00">
+                            <button type="button" class="grid-style-btn" data-category="door" data-model-id="four-grid" data-model-name="4-Grid Colonial French Doors" data-model-mechanism="door" data-grid-cost="<?php echo esc_attr($rates['model_four_grid']); ?>">
                                 <span class="grid-icon">➕</span>
                                 <span><?php esc_html_e('4-Grid Colonial Doors', 'luxury-window'); ?></span>
-                                <small><?php esc_html_e('Dual Handles Included (+$45)', 'luxury-window'); ?></small>
+                                <small><?php printf(esc_html__('Dual Handles Included (+$%s)', 'luxury-window'), esc_html(number_format($rates['model_four_grid'], 2))); ?></small>
                             </button>
 
-                            <button type="button" class="grid-style-btn" data-category="door" data-model-id="six-grid" data-model-name="6-Grid Architectural French Doors" data-model-mechanism="door" data-grid-cost="60.00">
+                            <button type="button" class="grid-style-btn" data-category="door" data-model-id="six-grid" data-model-name="6-Grid Architectural French Doors" data-model-mechanism="door" data-grid-cost="<?php echo esc_attr($rates['model_six_grid']); ?>">
                                 <span class="grid-icon">▦</span>
                                 <span><?php esc_html_e('6-Grid Architectural Doors', 'luxury-window'); ?></span>
-                                <small><?php esc_html_e('Dual Handles Included (+$60)', 'luxury-window'); ?></small>
+                                <small><?php printf(esc_html__('Dual Handles Included (+$%s)', 'luxury-window'), esc_html(number_format($rates['model_six_grid'], 2))); ?></small>
                             </button>
 
                         </div>
 
-                        <!-- Category B: Sliding Models (Strictly separated from Open/Close) -->
+                        <!-- Category B: Sliding Models (Dynamic Admin Rates) -->
                         <div id="category-models-slide" class="mechanism-models-grid grid-style-selector" style="display: none;">
                             
-                            <button type="button" class="grid-style-btn" data-category="slide" data-model-id="sliding" data-model-name="2-Panel Minimalist Sliding Window" data-model-mechanism="slide" data-grid-cost="25.00">
+                            <button type="button" class="grid-style-btn" data-category="slide" data-model-id="sliding" data-model-name="2-Panel Minimalist Sliding Window" data-model-mechanism="slide" data-grid-cost="<?php echo esc_attr($rates['model_sliding']); ?>">
                                 <span class="grid-icon">↔️</span>
                                 <span><?php esc_html_e('2-Panel Sliding', 'luxury-window'); ?></span>
-                                <small><?php esc_html_e('Touch-Slide / No Handles (+$25)', 'luxury-window'); ?></small>
+                                <small><?php printf(esc_html__('Touch-Slide / No Handles (+$%s)', 'luxury-window'), esc_html(number_format($rates['model_sliding'], 2))); ?></small>
                             </button>
 
-                            <button type="button" class="grid-style-btn" data-category="slide" data-model-id="sliding-colonial" data-model-name="4-Grid Colonial Sliding Window" data-model-mechanism="slide" data-grid-cost="45.00">
+                            <button type="button" class="grid-style-btn" data-category="slide" data-model-id="sliding-colonial" data-model-name="4-Grid Colonial Sliding Window" data-model-mechanism="slide" data-grid-cost="<?php echo esc_attr($rates['model_sliding_colonial']); ?>">
                                 <span class="grid-icon">➕</span>
                                 <span><?php esc_html_e('Colonial 4-Grid Sliding', 'luxury-window'); ?></span>
-                                <small><?php esc_html_e('Touch-Slide / No Handles (+$45)', 'luxury-window'); ?></small>
+                                <small><?php printf(esc_html__('Touch-Slide / No Handles (+$%s)', 'luxury-window'), esc_html(number_format($rates['model_sliding_colonial'], 2))); ?></small>
                             </button>
 
-                            <button type="button" class="grid-style-btn" data-category="slide" data-model-id="eight-grid" data-model-name="8-Grid Prairie Luxury Sliding Window" data-model-mechanism="slide" data-grid-cost="75.00">
+                            <button type="button" class="grid-style-btn" data-category="slide" data-model-id="eight-grid" data-model-name="8-Grid Prairie Luxury Sliding Window" data-model-mechanism="slide" data-grid-cost="<?php echo esc_attr($rates['model_eight_grid']); ?>">
                                 <span class="grid-icon">🏛️</span>
                                 <span><?php esc_html_e('8-Grid Prairie Sliding', 'luxury-window'); ?></span>
-                                <small><?php esc_html_e('Touch-Slide / No Handles (+$75)', 'luxury-window'); ?></small>
+                                <small><?php printf(esc_html__('Touch-Slide / No Handles (+$%s)', 'luxury-window'), esc_html(number_format($rates['model_eight_grid'], 2))); ?></small>
                             </button>
 
                         </div>
 
-                        <!-- Category C: Fixed Panoramic Models -->
+                        <!-- Category C: Fixed Panoramic Models (Dynamic Admin Rates) -->
                         <div id="category-models-fixed" class="mechanism-models-grid grid-style-selector" style="display: none;">
                             
-                            <button type="button" class="grid-style-btn" data-category="fixed" data-model-id="single" data-model-name="Single Panoramic Fixed Window" data-model-mechanism="fixed" data-grid-cost="0.00">
+                            <button type="button" class="grid-style-btn" data-category="fixed" data-model-id="single" data-model-name="Single Panoramic Fixed Window" data-model-mechanism="fixed" data-grid-cost="<?php echo esc_attr($rates['model_single']); ?>">
                                 <span class="grid-icon">🔲</span>
                                 <span><?php esc_html_e('Single Panoramic Fixed', 'luxury-window'); ?></span>
-                                <small><?php esc_html_e('Non-Opening Seamless (+$0)', 'luxury-window'); ?></small>
+                                <small><?php printf(esc_html__('Non-Opening Seamless (+$%s)', 'luxury-window'), esc_html(number_format($rates['model_single'], 2))); ?></small>
                             </button>
 
-                            <button type="button" class="grid-style-btn" data-category="fixed" data-model-id="four-grid-fixed" data-model-name="4-Grid Architectural Transom Fixed" data-model-mechanism="fixed" data-grid-cost="35.00">
+                            <button type="button" class="grid-style-btn" data-category="fixed" data-model-id="four-grid-fixed" data-model-name="4-Grid Architectural Transom Fixed" data-model-mechanism="fixed" data-grid-cost="<?php echo esc_attr($rates['model_four_grid_fixed']); ?>">
                                 <span class="grid-icon">▦</span>
                                 <span><?php esc_html_e('4-Grid Architectural Fixed', 'luxury-window'); ?></span>
-                                <small><?php esc_html_e('Non-Opening Transom (+$35)', 'luxury-window'); ?></small>
+                                <small><?php printf(esc_html__('Non-Opening Transom (+$%s)', 'luxury-window'), esc_html(number_format($rates['model_four_grid_fixed'], 2))); ?></small>
                             </button>
 
                         </div>
                     </div>
 
-                    <!-- STEP 5: Luxury Hardware Finishes (Dual Handles for Doors / Frameless for Sliding) -->
+                    <!-- STEP 5: Luxury Hardware Finishes (Dual Handles for Doors - Dynamic Admin Rates) -->
                     <div class="config-step-box" id="step-hardware-box">
                         <div class="step-badge">
                             <span class="step-num">5</span>
@@ -548,39 +561,39 @@ get_header();
 
                         <div class="swatch-grid" id="hardware-swatch-grid">
                             
-                            <!-- Dual Gold Handles (Both Left & Right) -->
-                            <button type="button" class="swatch-btn handle-swatch-btn active" data-handle-id="dual-gold" data-handle-name="Dual Luxury Gold Handles" data-handle-color="#d4af37" data-handle-cost="45.00">
+                            <!-- Dual Gold Handles -->
+                            <button type="button" class="swatch-btn handle-swatch-btn active" data-handle-id="dual-gold" data-handle-name="Dual Luxury Gold Handles" data-handle-color="#d4af37" data-handle-cost="<?php echo esc_attr($rates['handle_gold']); ?>">
                                 <span class="swatch-color" style="background: linear-gradient(135deg, #d4af37, #fef08a); border: 1px solid #fef08a;"></span>
                                 <div class="swatch-info">
                                     <span class="swatch-title"><?php esc_html_e('Dual Champagne Gold', 'luxury-window'); ?></span>
-                                    <span class="swatch-subtitle"><?php esc_html_e('Both Panels (+$45)', 'luxury-window'); ?></span>
+                                    <span class="swatch-subtitle"><?php printf(esc_html__('Both Panels (+$%s)', 'luxury-window'), esc_html(number_format($rates['handle_gold'], 2))); ?></span>
                                 </div>
                             </button>
 
                             <!-- Dual Matte Black Handles -->
-                            <button type="button" class="swatch-btn handle-swatch-btn" data-handle-id="dual-black" data-handle-name="Dual Obsidian Matte Black Handles" data-handle-color="#18181b" data-handle-cost="35.00">
+                            <button type="button" class="swatch-btn handle-swatch-btn" data-handle-id="dual-black" data-handle-name="Dual Obsidian Matte Black Handles" data-handle-color="#18181b" data-handle-cost="<?php echo esc_attr($rates['handle_black']); ?>">
                                 <span class="swatch-color" style="background: linear-gradient(135deg, #18181b, #3f3f46); border: 1px solid #52525b;"></span>
                                 <div class="swatch-info">
                                     <span class="swatch-title"><?php esc_html_e('Dual Obsidian Black', 'luxury-window'); ?></span>
-                                    <span class="swatch-subtitle"><?php esc_html_e('Both Panels (+$35)', 'luxury-window'); ?></span>
+                                    <span class="swatch-subtitle"><?php printf(esc_html__('Both Panels (+$%s)', 'luxury-window'), esc_html(number_format($rates['handle_black'], 2))); ?></span>
                                 </div>
                             </button>
 
                             <!-- Dual Brushed Chrome Handles -->
-                            <button type="button" class="swatch-btn handle-swatch-btn" data-handle-id="dual-chrome" data-handle-name="Dual Brushed Chrome Handles" data-handle-color="#94a3b8" data-handle-cost="40.00">
+                            <button type="button" class="swatch-btn handle-swatch-btn" data-handle-id="dual-chrome" data-handle-name="Dual Brushed Chrome Handles" data-handle-color="#94a3b8" data-handle-cost="<?php echo esc_attr($rates['handle_chrome']); ?>">
                                 <span class="swatch-color" style="background: linear-gradient(135deg, #94a3b8, #cbd5e1); border: 1px solid #cbd5e1;"></span>
                                 <div class="swatch-info">
                                     <span class="swatch-title"><?php esc_html_e('Dual Brushed Chrome', 'luxury-window'); ?></span>
-                                    <span class="swatch-subtitle"><?php esc_html_e('Both Panels (+$40)', 'luxury-window'); ?></span>
+                                    <span class="swatch-subtitle"><?php printf(esc_html__('Both Panels (+$%s)', 'luxury-window'), esc_html(number_format($rates['handle_chrome'], 2))); ?></span>
                                 </div>
                             </button>
 
                             <!-- Dual Architectural Bronze Handles -->
-                            <button type="button" class="swatch-btn handle-swatch-btn" data-handle-id="dual-bronze" data-handle-name="Dual Architectural Bronze Handles" data-handle-color="#78350f" data-handle-cost="42.00">
+                            <button type="button" class="swatch-btn handle-swatch-btn" data-handle-id="dual-bronze" data-handle-name="Dual Architectural Bronze Handles" data-handle-color="#78350f" data-handle-cost="<?php echo esc_attr($rates['handle_bronze']); ?>">
                                 <span class="swatch-color" style="background: linear-gradient(135deg, #78350f, #92400e); border: 1px solid #92400e;"></span>
                                 <div class="swatch-info">
-                                    <span class="swatch-title"><?php esc_html_e('Dual Bronze Handles', 'luxury-window'); ?></span>
-                                    <span class="swatch-subtitle"><?php esc_html_e('Both Panels (+$42)', 'luxury-window'); ?></span>
+                                    <span class="swatch-title"><?php esc_html_e('Dual Architectural Bronze', 'luxury-window'); ?></span>
+                                    <span class="swatch-subtitle"><?php printf(esc_html__('Both Panels (+$%s)', 'luxury-window'), esc_html(number_format($rates['handle_bronze'], 2))); ?></span>
                                 </div>
                             </button>
 

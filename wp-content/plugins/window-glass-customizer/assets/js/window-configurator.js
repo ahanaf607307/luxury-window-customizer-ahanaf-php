@@ -48,6 +48,32 @@ document.addEventListener('DOMContentLoaded', function () {
         totalPrice: 0.00
     };
 
+    // Synchronize initial rates from admin-configured DOM attributes & localized data
+    const adminRates = (typeof vlogpulse_window_data !== 'undefined' && vlogpulse_window_data.rates) ? vlogpulse_window_data.rates : {};
+    if (adminRates.base_fee) {
+        state.baseFee = parseFloat(adminRates.base_fee);
+    }
+    const initialActiveFrame = studio.querySelector('.frame-swatch-btn.active');
+    if (initialActiveFrame && initialActiveFrame.dataset.frameRate) {
+        state.frame.ratePerFt = parseFloat(initialActiveFrame.dataset.frameRate);
+    }
+    const initialActiveProfile = studio.querySelector('.frame-profile-btn.active');
+    if (initialActiveProfile && initialActiveProfile.dataset.profileCost) {
+        state.frameProfile.costPerFt = parseFloat(initialActiveProfile.dataset.profileCost);
+    }
+    const initialActiveGlass = studio.querySelector('.glass-swatch-btn.active');
+    if (initialActiveGlass && initialActiveGlass.dataset.glassRate) {
+        state.glass.ratePerSqft = parseFloat(initialActiveGlass.dataset.glassRate);
+    }
+    const initialActiveModel = studio.querySelector('.grid-style-btn.active');
+    if (initialActiveModel && initialActiveModel.dataset.gridCost) {
+        state.model.cost = parseFloat(initialActiveModel.dataset.gridCost);
+    }
+    const initialActiveHandle = studio.querySelector('.handle-swatch-btn.active');
+    if (initialActiveHandle && initialActiveHandle.dataset.handleCost) {
+        state.hardware.cost = parseFloat(initialActiveHandle.dataset.handleCost);
+    }
+
     // DOM Elements - Inputs & Controls
     const widthSlider = document.getElementById('window-width-slider');
     const widthInput = document.getElementById('window-width-input');

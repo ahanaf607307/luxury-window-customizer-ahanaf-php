@@ -27,6 +27,7 @@ require_once WINDOW_GLASS_CUSTOMIZER_DIR . 'includes/meta-boxes.php';
 require_once WINDOW_GLASS_CUSTOMIZER_DIR . 'includes/like-handler.php';
 require_once WINDOW_GLASS_CUSTOMIZER_DIR . 'includes/auth-handler.php';
 require_once WINDOW_GLASS_CUSTOMIZER_DIR . 'includes/post-submission.php';
+require_once WINDOW_GLASS_CUSTOMIZER_DIR . 'includes/admin-pricing-settings.php';
 require_once WINDOW_GLASS_CUSTOMIZER_DIR . 'includes/window-configurator.php';
 
 /**
@@ -84,10 +85,13 @@ function window_glass_customizer_enqueue_scripts() {
         )
     );
 
+    $rates = function_exists('luxury_window_get_pricing_rates') ? luxury_window_get_pricing_rates() : array();
+
     $window_localize_data = array(
         'ajax_url' => admin_url('admin-ajax.php'),
         'nonce'    => wp_create_nonce('vlogpulse_window_nonce'),
         'cart_url' => function_exists('wc_get_cart_url') ? wc_get_cart_url() : home_url('/cart/'),
+        'rates'    => $rates,
     );
 
     wp_localize_script('window-glass-auth-script', 'ahanaf_data', $localize_data);
