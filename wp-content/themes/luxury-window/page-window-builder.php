@@ -112,49 +112,54 @@ get_header();
                                 </linearGradient>
                             </defs>
 
-                            <!-- Outer Window Frame Track (Only colored by frame choice) -->
-                            <rect id="svg-frame-outer" x="10" y="10" width="340" height="430" rx="8" ry="8" fill="#18181b" stroke="rgba(212,175,55,0.3)" stroke-width="1.5" />
-
                             <!-- Background Wall / Sky View Behind Glass -->
-                            <rect id="svg-backdrop-view" x="22" y="22" width="316" height="406" rx="4" ry="4" fill="#0b0f19" />
+                            <rect id="svg-backdrop-view" x="14" y="14" width="332" height="422" rx="4" fill="#070a13" />
 
-                            <!-- Left Window Sash & Glass (Interactive Swing / Slide) -->
-                            <g id="svg-sash-left" style="transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1); transform-origin: left center;">
+                            <!-- Left Window Sash Unit (Interactive Door Swing / Slide) -->
+                            <g id="svg-sash-left" style="transition: all 0.7s cubic-bezier(0.25, 1, 0.5, 1); transform-origin: 20px center;">
                                 <!-- Left Glass Pane -->
-                                <rect id="svg-glass-left" x="22" y="22" width="158" height="406" rx="4" ry="4" fill="url(#glassClearGrad)" />
-                                <!-- Left Frame Border -->
-                                <rect id="svg-frame-left-sash" x="22" y="22" width="158" height="406" rx="4" ry="4" fill="none" stroke="#27272a" stroke-width="4" />
-                                <polygon points="35,22 100,22 60,428 22,428" fill="rgba(255,255,255,0.06)" />
+                                <rect id="svg-glass-left" x="20" y="20" width="160" height="410" rx="3" ry="3" fill="url(#glassClearGrad)" />
+                                <!-- Left Frame Sash Border -->
+                                <rect id="svg-frame-left-sash" x="20" y="20" width="160" height="410" rx="3" ry="3" fill="none" stroke="#18181b" stroke-width="4.5" />
+                                <polygon points="32,20 95,20 55,430 20,430" fill="rgba(255,255,255,0.06)" />
+                                
+                                <!-- Left Sash Grids (Moves WITH sash!) -->
+                                <line id="svg-grid-left-h" x1="20" y1="225" x2="180" y2="225" stroke="#18181b" stroke-width="4" style="display: none;" />
+                                <line id="svg-grid-left-h2" x1="20" y1="156" x2="180" y2="156" stroke="#18181b" stroke-width="3.5" style="display: none;" />
+                                <line id="svg-grid-left-h3" x1="20" y1="294" x2="180" y2="294" stroke="#18181b" stroke-width="3.5" style="display: none;" />
+                                <line id="svg-grid-left-v" x1="100" y1="20" x2="100" y2="430" stroke="#18181b" stroke-width="3.5" style="display: none;" />
+
                                 <!-- Left Handle (for Dual Handles) -->
                                 <g id="svg-handle-left" style="display: block;">
-                                    <rect id="svg-handle-left-rect" x="160" y="205" width="9" height="40" rx="2.5" ry="2.5" fill="#d4af37" filter="drop-shadow(0px 2px 4px rgba(0,0,0,0.7))" />
-                                    <circle id="svg-handle-left-dot" cx="164.5" cy="213" r="2.2" fill="#070709" />
+                                    <rect id="svg-handle-left-rect" x="163" y="205" width="8" height="40" rx="2.5" ry="2.5" fill="#d4af37" filter="drop-shadow(0px 2px 4px rgba(0,0,0,0.7))" />
+                                    <circle id="svg-handle-left-dot" cx="167" cy="213" r="2.2" fill="#070709" />
                                 </g>
                             </g>
 
-                            <!-- Right Window Sash & Glass (Interactive Swing / Fixed) -->
-                            <g id="svg-sash-right" style="transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1); transform-origin: right center;">
+                            <!-- Right Window Sash Unit (Interactive Door Swing / Fixed) -->
+                            <g id="svg-sash-right" style="transition: all 0.7s cubic-bezier(0.25, 1, 0.5, 1); transform-origin: 340px center;">
                                 <!-- Right Glass Pane -->
-                                <rect id="svg-glass-right" x="180" y="22" width="158" height="406" rx="4" ry="4" fill="url(#glassClearGrad)" />
-                                <!-- Right Frame Border -->
-                                <rect id="svg-frame-right-sash" x="180" y="22" width="158" height="406" rx="4" ry="4" fill="none" stroke="#27272a" stroke-width="4" />
-                                <polygon points="200,22 250,22 210,428 180,428" fill="rgba(255,255,255,0.03)" />
+                                <rect id="svg-glass-right" x="180" y="20" width="160" height="410" rx="3" ry="3" fill="url(#glassClearGrad)" />
+                                <!-- Right Frame Sash Border -->
+                                <rect id="svg-frame-right-sash" x="180" y="20" width="160" height="410" rx="3" ry="3" fill="none" stroke="#18181b" stroke-width="4.5" />
+                                <polygon points="195,20 245,20 205,430 180,430" fill="rgba(255,255,255,0.03)" />
+                                
+                                <!-- Right Sash Grids (Moves WITH sash!) -->
+                                <line id="svg-grid-right-h" x1="180" y1="225" x2="340" y2="225" stroke="#18181b" stroke-width="4" style="display: none;" />
+                                <line id="svg-grid-right-h2" x1="180" y1="156" x2="340" y2="156" stroke="#18181b" stroke-width="3.5" style="display: none;" />
+                                <line id="svg-grid-right-h3" x1="180" y1="294" x2="340" y2="294" stroke="#18181b" stroke-width="3.5" style="display: none;" />
+                                <line id="svg-grid-right-v" x1="260" y1="20" x2="260" y2="430" stroke="#18181b" stroke-width="3.5" style="display: none;" />
+
                                 <!-- Right Handle (for Dual Handles) -->
                                 <g id="svg-handle-right" style="display: block;">
-                                    <rect id="svg-handle-right-rect" x="191" y="205" width="9" height="40" rx="2.5" ry="2.5" fill="#d4af37" filter="drop-shadow(0px 2px 4px rgba(0,0,0,0.7))" />
-                                    <circle id="svg-handle-right-dot" cx="195.5" cy="213" r="2.2" fill="#070709" />
+                                    <rect id="svg-handle-right-rect" x="189" y="205" width="8" height="40" rx="2.5" ry="2.5" fill="#d4af37" filter="drop-shadow(0px 2px 4px rgba(0,0,0,0.7))" />
+                                    <circle id="svg-handle-right-dot" cx="193" cy="213" r="2.2" fill="#070709" />
                                 </g>
                             </g>
 
-                            <!-- Inner Frame Track Border -->
-                            <rect id="svg-frame-inner" x="22" y="22" width="316" height="406" rx="4" ry="4" fill="none" stroke="#27272a" stroke-width="4" pointer-events="none" />
-
-                            <!-- Dynamic Grid Lines (Stroked with Frame Color) -->
-                            <line id="svg-grid-vertical" x1="180" y1="22" x2="180" y2="428" stroke="#18181b" stroke-width="6" style="display: block;" />
-                            <line id="svg-grid-horizontal" x1="22" y1="225" x2="338" y2="225" stroke="#18181b" stroke-width="6" style="display: none;" />
-                            <line id="svg-grid-extra-cols" x1="101" y1="22" x2="101" y2="428" stroke="#18181b" stroke-width="4.5" style="display: none;" />
-                            <line id="svg-grid-extra-cols-2" x1="259" y1="22" x2="259" y2="428" stroke="#18181b" stroke-width="4.5" style="display: none;" />
-                            <line id="svg-grid-extra-rows" x1="22" y1="290" x2="338" y2="290" stroke="#18181b" stroke-width="4.5" style="display: none;" />
+                            <!-- 4. MASTER OUTER FRAME CASING (Drawn ON TOP of sashes to hold them cleanly inside) -->
+                            <rect id="svg-frame-outer" x="10" y="10" width="340" height="430" rx="8" ry="8" fill="none" stroke="#18181b" stroke-width="18" style="pointer-events: none;" />
+                            <rect id="svg-frame-bezel" x="19" y="19" width="322" height="412" rx="4" ry="4" fill="none" stroke="rgba(212,175,55,0.4)" stroke-width="1.5" style="pointer-events: none;" />
                         </svg>
                     </div>
 

@@ -305,103 +305,99 @@ document.addEventListener('DOMContentLoaded', function () {
         const baseWidth = 320;
         const aspect = state.width / state.height;
         const calculatedSvgHeight = Math.round(baseWidth / aspect);
-        const clampedHeight = Math.max(220, Math.min(420, calculatedSvgHeight));
-        const paneHeight = clampedHeight - 24;
+        const clampedHeight = Math.max(240, Math.min(430, calculatedSvgHeight));
+        const sashHeight = clampedHeight - 40;
 
         if (svgStage) {
             svgStage.setAttribute('viewBox', `0 0 360 ${clampedHeight}`);
         }
 
-        // Frame Colors (Strictly affects frame parts only)
+        // Master Outer Frame Casing (Layered firmly on top of sashes)
         if (svgFrameOuter) {
-            svgFrameOuter.setAttribute('fill', state.frame.color);
-            svgFrameOuter.setAttribute('height', clampedHeight);
+            svgFrameOuter.setAttribute('stroke', state.frame.color);
+            svgFrameOuter.setAttribute('height', clampedHeight - 20);
         }
-        if (svgFrameInner) {
-            svgFrameInner.setAttribute('stroke', state.frame.accent);
-            svgFrameInner.setAttribute('height', paneHeight);
+        const svgFrameBezel = document.getElementById('svg-frame-bezel');
+        if (svgFrameBezel) {
+            svgFrameBezel.setAttribute('height', clampedHeight - 38);
+        }
+        const svgBackdropView = document.getElementById('svg-backdrop-view');
+        if (svgBackdropView) {
+            svgBackdropView.setAttribute('height', clampedHeight - 28);
         }
 
-        // Glass Fill (Strictly affects glass panes only)
+        // Glass Fill (Strictly affects glass panes inside sashes)
         if (svgGlassLeft) {
             svgGlassLeft.setAttribute('fill', state.glass.fill);
-            svgGlassLeft.setAttribute('height', paneHeight);
+            svgGlassLeft.setAttribute('height', sashHeight);
         }
         if (svgGlassRight) {
             svgGlassRight.setAttribute('fill', state.glass.fill);
-            svgGlassRight.setAttribute('height', paneHeight);
+            svgGlassRight.setAttribute('height', sashHeight);
         }
 
+        // Frame Sash Outlines
         if (svgFrameLeftSash) {
-            svgFrameLeftSash.setAttribute('stroke', state.frame.accent);
-            svgFrameLeftSash.setAttribute('height', paneHeight);
+            svgFrameLeftSash.setAttribute('stroke', state.frame.color);
+            svgFrameLeftSash.setAttribute('height', sashHeight);
         }
         if (svgFrameRightSash) {
-            svgFrameRightSash.setAttribute('stroke', state.frame.accent);
-            svgFrameRightSash.setAttribute('height', paneHeight);
+            svgFrameRightSash.setAttribute('stroke', state.frame.color);
+            svgFrameRightSash.setAttribute('height', sashHeight);
         }
 
-        // Grid Style Configurations
-        const gridStroke = state.frame.color;
+        // Sash-attached Internal Grid Lines
+        const svgGridLeftH = document.getElementById('svg-grid-left-h');
+        const svgGridLeftH2 = document.getElementById('svg-grid-left-h2');
+        const svgGridLeftH3 = document.getElementById('svg-grid-left-h3');
+        const svgGridLeftV = document.getElementById('svg-grid-left-v');
 
-        // Reset Grids
-        if (svgGridVertical) svgGridVertical.style.display = 'none';
-        if (svgGridHorizontal) svgGridHorizontal.style.display = 'none';
-        if (svgGridExtraCols) svgGridExtraCols.style.display = 'none';
-        if (svgGridExtraCols2) svgGridExtraCols2.style.display = 'none';
-        if (svgGridExtraRows) svgGridExtraRows.style.display = 'none';
+        const svgGridRightH = document.getElementById('svg-grid-right-h');
+        const svgGridRightH2 = document.getElementById('svg-grid-right-h2');
+        const svgGridRightH3 = document.getElementById('svg-grid-right-h3');
+        const svgGridRightV = document.getElementById('svg-grid-right-v');
 
-        if (state.model.id === 'casement' || state.model.id === 'sliding') {
-            if (svgGridVertical) {
-                svgGridVertical.style.display = 'block';
-                svgGridVertical.setAttribute('stroke', gridStroke);
-                svgGridVertical.setAttribute('y2', clampedHeight - 12);
-            }
-        } else if (state.model.id === 'four-grid' || state.model.id === 'sliding-colonial' || state.model.id === 'four-grid-fixed') {
-            if (svgGridVertical && svgGridHorizontal) {
-                svgGridVertical.style.display = 'block';
-                svgGridVertical.setAttribute('stroke', gridStroke);
-                svgGridVertical.setAttribute('y2', clampedHeight - 12);
+        // Reset all sash grids
+        [svgGridLeftH, svgGridLeftH2, svgGridLeftH3, svgGridLeftV, svgGridRightH, svgGridRightH2, svgGridRightH3, svgGridRightV].forEach(el => {
+            if (el) el.style.display = 'none';
+        });
 
-                svgGridHorizontal.style.display = 'block';
-                svgGridHorizontal.setAttribute('stroke', gridStroke);
-                svgGridHorizontal.setAttribute('y1', clampedHeight / 2);
-                svgGridHorizontal.setAttribute('y2', clampedHeight / 2);
-            }
+        if (state.model.id === 'four-grid' || state.model.id === 'sliding-colonial' || state.model.id === 'four-grid-fixed') {
+            [svgGridLeftH, svgGridRightH].forEach(el => {
+                if (el) {
+                    el.style.display = 'block';
+                    el.setAttribute('stroke', state.frame.color);
+                    el.setAttribute('y1', clampedHeight / 2);
+                    el.setAttribute('y2', clampedHeight / 2);
+                }
+            });
         } else if (state.model.id === 'six-grid') {
-            if (svgGridVertical && svgGridHorizontal && svgGridExtraRows) {
-                svgGridVertical.style.display = 'block';
-                svgGridVertical.setAttribute('stroke', gridStroke);
-                svgGridVertical.setAttribute('y2', clampedHeight - 12);
-
-                svgGridHorizontal.style.display = 'block';
-                svgGridHorizontal.setAttribute('stroke', gridStroke);
-                svgGridHorizontal.setAttribute('y1', clampedHeight * 0.33);
-                svgGridHorizontal.setAttribute('y2', clampedHeight * 0.33);
-
-                svgGridExtraRows.style.display = 'block';
-                svgGridExtraRows.setAttribute('stroke', gridStroke);
-                svgGridExtraRows.setAttribute('y1', clampedHeight * 0.66);
-                svgGridExtraRows.setAttribute('y2', clampedHeight * 0.66);
-            }
+            [svgGridLeftH2, svgGridLeftH3, svgGridRightH2, svgGridRightH3].forEach(el => {
+                if (el) {
+                    el.style.display = 'block';
+                    el.setAttribute('stroke', state.frame.color);
+                }
+            });
+            if (svgGridLeftH2) { svgGridLeftH2.setAttribute('y1', clampedHeight * 0.35); svgGridLeftH2.setAttribute('y2', clampedHeight * 0.35); }
+            if (svgGridRightH2) { svgGridRightH2.setAttribute('y1', clampedHeight * 0.35); svgGridRightH2.setAttribute('y2', clampedHeight * 0.35); }
+            if (svgGridLeftH3) { svgGridLeftH3.setAttribute('y1', clampedHeight * 0.65); svgGridLeftH3.setAttribute('y2', clampedHeight * 0.65); }
+            if (svgGridRightH3) { svgGridRightH3.setAttribute('y1', clampedHeight * 0.65); svgGridRightH3.setAttribute('y2', clampedHeight * 0.65); }
         } else if (state.model.id === 'eight-grid') {
-            if (svgGridVertical && svgGridHorizontal && svgGridExtraCols && svgGridExtraCols2) {
-                svgGridVertical.style.display = 'block';
-                svgGridVertical.setAttribute('stroke', gridStroke);
-                svgGridVertical.setAttribute('y2', clampedHeight - 12);
-
-                svgGridExtraCols.style.display = 'block';
-                svgGridExtraCols.setAttribute('stroke', gridStroke);
-                svgGridExtraCols.setAttribute('y2', clampedHeight - 12);
-
-                svgGridExtraCols2.style.display = 'block';
-                svgGridExtraCols2.setAttribute('stroke', gridStroke);
-                svgGridExtraCols2.setAttribute('y2', clampedHeight - 12);
-
-                svgGridHorizontal.style.display = 'block';
-                svgGridHorizontal.setAttribute('stroke', gridStroke);
-                svgGridHorizontal.setAttribute('y1', clampedHeight / 2);
-                svgGridHorizontal.setAttribute('y2', clampedHeight / 2);
+            [svgGridLeftH, svgGridLeftV, svgGridRightH, svgGridRightV].forEach(el => {
+                if (el) {
+                    el.style.display = 'block';
+                    el.setAttribute('stroke', state.frame.color);
+                }
+            });
+            if (svgGridLeftH && svgGridRightH) {
+                [svgGridLeftH, svgGridRightH].forEach(el => {
+                    el.setAttribute('y1', clampedHeight / 2);
+                    el.setAttribute('y2', clampedHeight / 2);
+                });
+            }
+            if (svgGridLeftV && svgGridRightV) {
+                svgGridLeftV.setAttribute('y2', clampedHeight - 20);
+                svgGridRightV.setAttribute('y2', clampedHeight - 20);
             }
         }
 
@@ -465,7 +461,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Horizontal Slide Animation
                 if (isMotionActive) {
                     if (svgSashLeft) {
-                        svgSashLeft.style.transformOrigin = '22px center';
+                        svgSashLeft.style.transformOrigin = '20px center';
                         svgSashLeft.style.transform = 'translateX(116px)';
                         svgSashLeft.style.filter = 'drop-shadow(4px 0 12px rgba(0,0,0,0.75))';
                     }
@@ -480,15 +476,15 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (textSpan) textSpan.textContent = 'Slide Open ↔️';
                 }
             } else if (state.model.mechanism === 'door') {
-                // 3D Door Swing Outward Animation
+                // 3D Door Swing Outward Animation (Clean anchor under outer frame casing)
                 if (isMotionActive) {
                     if (svgSashLeft) {
-                        svgSashLeft.style.transformOrigin = '22px center';
+                        svgSashLeft.style.transformOrigin = '20px 50%';
                         svgSashLeft.style.transform = 'perspective(900px) rotateY(-56deg)';
                         svgSashLeft.style.filter = 'drop-shadow(-8px 4px 16px rgba(0,0,0,0.85))';
                     }
                     if (svgSashRight) {
-                        svgSashRight.style.transformOrigin = '338px center';
+                        svgSashRight.style.transformOrigin = '340px 50%';
                         svgSashRight.style.transform = 'perspective(900px) rotateY(56deg)';
                         svgSashRight.style.filter = 'drop-shadow(8px 4px 16px rgba(0,0,0,0.85))';
                     }
