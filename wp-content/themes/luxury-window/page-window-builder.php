@@ -373,55 +373,99 @@ get_header();
                         </div>
                     </div>
 
-                    <!-- STEP 4: Window Mechanism & Architectural Models (Sliding vs Door Open/Close) -->
+                    <!-- STEP 4: Window Mechanism & Architectural Systems (Separated Sliding vs Door Categories) -->
                     <div class="config-step-box">
                         <div class="step-badge">
                             <span class="step-num">4</span>
-                            <h4><?php esc_html_e('Window Architecture & Opening Mechanism', 'luxury-window'); ?></h4>
+                            <h4><?php esc_html_e('Choose Window Mechanism & Model', 'luxury-window'); ?></h4>
                         </div>
 
-                        <div class="grid-style-selector">
+                        <!-- Mechanism Category Tab Nav -->
+                        <div class="mechanism-category-tabs" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.6rem; margin-bottom: 1.2rem;">
+                            <button type="button" class="mechanism-nav-tab active" data-target-category="door">
+                                <span style="font-size: 1.2rem;">🚪</span>
+                                <div style="text-align: left;">
+                                    <strong style="display: block; font-size: 0.85rem; color: #fff;"><?php esc_html_e('Casement & Doors', 'luxury-window'); ?></strong>
+                                    <small style="font-size: 0.72rem; color: var(--color-gold);"><?php esc_html_e('Open/Close (Dual Handles)', 'luxury-window'); ?></small>
+                                </div>
+                            </button>
+
+                            <button type="button" class="mechanism-nav-tab" data-target-category="slide">
+                                <span style="font-size: 1.2rem;">↔️</span>
+                                <div style="text-align: left;">
+                                    <strong style="display: block; font-size: 0.85rem; color: #fff;"><?php esc_html_e('Sliding Systems', 'luxury-window'); ?></strong>
+                                    <small style="font-size: 0.72rem; color: #38bdf8;"><?php esc_html_e('Glide Track (No Handles)', 'luxury-window'); ?></small>
+                                </div>
+                            </button>
+
+                            <button type="button" class="mechanism-nav-tab" data-target-category="fixed">
+                                <span style="font-size: 1.2rem;">🔲</span>
+                                <div style="text-align: left;">
+                                    <strong style="display: block; font-size: 0.85rem; color: #fff;"><?php esc_html_e('Fixed Systems', 'luxury-window'); ?></strong>
+                                    <small style="font-size: 0.72rem; color: #a1a1aa;"><?php esc_html_e('Panoramic Seamless View', 'luxury-window'); ?></small>
+                                </div>
+                            </button>
+                        </div>
+
+                        <!-- Category A: Door Open/Close Models -->
+                        <div id="category-models-door" class="mechanism-models-grid grid-style-selector active-category">
                             
-                            <!-- Model 1: Double Casement Door Open/Close (Dual Handles) -->
-                            <button type="button" class="grid-style-btn active" data-model-id="casement" data-model-name="Double Casement (Door Open/Close)" data-model-mechanism="door" data-grid-cost="35.00">
+                            <button type="button" class="grid-style-btn active" data-category="door" data-model-id="casement" data-model-name="Double Casement French Doors" data-model-mechanism="door" data-grid-cost="35.00">
                                 <span class="grid-icon">🚪</span>
                                 <span><?php esc_html_e('Double Casement Doors', 'luxury-window'); ?></span>
-                                <small><?php esc_html_e('Dual Handles (+$35)', 'luxury-window'); ?></small>
+                                <small><?php esc_html_e('Dual Handles Included (+$35)', 'luxury-window'); ?></small>
                             </button>
 
-                            <!-- Model 2: 2-Panel Horizontal Sliding (No Handles) -->
-                            <button type="button" class="grid-style-btn" data-model-id="sliding" data-model-name="2-Panel Horizontal Sliding" data-model-mechanism="slide" data-grid-cost="25.00">
+                            <button type="button" class="grid-style-btn" data-category="door" data-model-id="four-grid" data-model-name="4-Grid Colonial French Doors" data-model-mechanism="door" data-grid-cost="45.00">
+                                <span class="grid-icon">➕</span>
+                                <span><?php esc_html_e('4-Grid Colonial Doors', 'luxury-window'); ?></span>
+                                <small><?php esc_html_e('Dual Handles Included (+$45)', 'luxury-window'); ?></small>
+                            </button>
+
+                            <button type="button" class="grid-style-btn" data-category="door" data-model-id="six-grid" data-model-name="6-Grid Architectural French Doors" data-model-mechanism="door" data-grid-cost="60.00">
+                                <span class="grid-icon">▦</span>
+                                <span><?php esc_html_e('6-Grid Architectural Doors', 'luxury-window'); ?></span>
+                                <small><?php esc_html_e('Dual Handles Included (+$60)', 'luxury-window'); ?></small>
+                            </button>
+
+                        </div>
+
+                        <!-- Category B: Sliding Models (Strictly separated from Open/Close) -->
+                        <div id="category-models-slide" class="mechanism-models-grid grid-style-selector" style="display: none;">
+                            
+                            <button type="button" class="grid-style-btn" data-category="slide" data-model-id="sliding" data-model-name="2-Panel Minimalist Sliding Window" data-model-mechanism="slide" data-grid-cost="25.00">
                                 <span class="grid-icon">↔️</span>
                                 <span><?php esc_html_e('2-Panel Sliding', 'luxury-window'); ?></span>
-                                <small><?php esc_html_e('No Handles (+$25)', 'luxury-window'); ?></small>
+                                <small><?php esc_html_e('Touch-Slide / No Handles (+$25)', 'luxury-window'); ?></small>
                             </button>
 
-                            <!-- Model 3: Single Minimalist Fixed Pane -->
-                            <button type="button" class="grid-style-btn" data-model-id="single" data-model-name="Single Panoramic Fixed Window" data-model-mechanism="fixed" data-grid-cost="0.00">
+                            <button type="button" class="grid-style-btn" data-category="slide" data-model-id="sliding-colonial" data-model-name="4-Grid Colonial Sliding Window" data-model-mechanism="slide" data-grid-cost="45.00">
+                                <span class="grid-icon">➕</span>
+                                <span><?php esc_html_e('Colonial 4-Grid Sliding', 'luxury-window'); ?></span>
+                                <small><?php esc_html_e('Touch-Slide / No Handles (+$45)', 'luxury-window'); ?></small>
+                            </button>
+
+                            <button type="button" class="grid-style-btn" data-category="slide" data-model-id="eight-grid" data-model-name="8-Grid Prairie Luxury Sliding Window" data-model-mechanism="slide" data-grid-cost="75.00">
+                                <span class="grid-icon">🏛️</span>
+                                <span><?php esc_html_e('8-Grid Prairie Sliding', 'luxury-window'); ?></span>
+                                <small><?php esc_html_e('Touch-Slide / No Handles (+$75)', 'luxury-window'); ?></small>
+                            </button>
+
+                        </div>
+
+                        <!-- Category C: Fixed Panoramic Models -->
+                        <div id="category-models-fixed" class="mechanism-models-grid grid-style-selector" style="display: none;">
+                            
+                            <button type="button" class="grid-style-btn" data-category="fixed" data-model-id="single" data-model-name="Single Panoramic Fixed Window" data-model-mechanism="fixed" data-grid-cost="0.00">
                                 <span class="grid-icon">🔲</span>
                                 <span><?php esc_html_e('Single Panoramic Fixed', 'luxury-window'); ?></span>
-                                <small><?php esc_html_e('No Moving Parts (+$0)', 'luxury-window'); ?></small>
+                                <small><?php esc_html_e('Non-Opening Seamless (+$0)', 'luxury-window'); ?></small>
                             </button>
 
-                            <!-- Model 4: 4-Grid Colonial Cross -->
-                            <button type="button" class="grid-style-btn" data-model-id="four-grid" data-model-name="4-Grid Colonial Architectural" data-model-mechanism="door" data-grid-cost="45.00">
-                                <span class="grid-icon">➕</span>
-                                <span><?php esc_html_e('4-Grid Colonial', 'luxury-window'); ?></span>
-                                <small><?php esc_html_e('Dual Handles (+$45)', 'luxury-window'); ?></small>
-                            </button>
-
-                            <!-- Model 5: 6-Grid Architectural -->
-                            <button type="button" class="grid-style-btn" data-model-id="six-grid" data-model-name="6-Grid Luxury Architectural" data-model-mechanism="door" data-grid-cost="60.00">
+                            <button type="button" class="grid-style-btn" data-category="fixed" data-model-id="four-grid-fixed" data-model-name="4-Grid Architectural Transom Fixed" data-model-mechanism="fixed" data-grid-cost="35.00">
                                 <span class="grid-icon">▦</span>
-                                <span><?php esc_html_e('6-Grid Architectural', 'luxury-window'); ?></span>
-                                <small><?php esc_html_e('Dual Handles (+$60)', 'luxury-window'); ?></small>
-                            </button>
-
-                            <!-- Model 6: 8-Grid Prairie Luxury -->
-                            <button type="button" class="grid-style-btn" data-model-id="eight-grid" data-model-name="8-Grid Prairie Luxury Window" data-model-mechanism="slide" data-grid-cost="75.00">
-                                <span class="grid-icon">🏛️</span>
-                                <span><?php esc_html_e('8-Grid Prairie Luxury', 'luxury-window'); ?></span>
-                                <small><?php esc_html_e('Sliding Style (+$75)', 'luxury-window'); ?></small>
+                                <span><?php esc_html_e('4-Grid Architectural Fixed', 'luxury-window'); ?></span>
+                                <small><?php esc_html_e('Non-Opening Transom (+$35)', 'luxury-window'); ?></small>
                             </button>
 
                         </div>

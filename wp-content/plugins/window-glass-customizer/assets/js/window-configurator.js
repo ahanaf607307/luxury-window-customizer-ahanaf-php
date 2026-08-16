@@ -149,9 +149,41 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    // Mechanism Category Tabs Navigation
+    const mechanismTabs = studio.querySelectorAll('.mechanism-nav-tab');
+    const mechanismGrids = studio.querySelectorAll('.mechanism-models-grid');
+
+    mechanismTabs.forEach(tab => {
+        tab.addEventListener('click', function () {
+            mechanismTabs.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+
+            const targetCategory = this.getAttribute('data-target-category');
+
+            // Hide all model grids and show the target category grid
+            mechanismGrids.forEach(grid => {
+                grid.style.display = 'none';
+                grid.classList.remove('active-category');
+            });
+
+            const activeGrid = document.getElementById(`category-models-${targetCategory}`);
+            if (activeGrid) {
+                activeGrid.style.display = 'grid';
+                activeGrid.classList.add('active-category');
+
+                // Automatically select first model in the new category
+                const firstModelBtn = activeGrid.querySelector('.grid-style-btn');
+                if (firstModelBtn) {
+                    firstModelBtn.click();
+                }
+            }
+        });
+    });
+
     // 4. Window Mechanism & Architecture Model Selector
     modelButtons.forEach(btn => {
         btn.addEventListener('click', function () {
+            // Remove active from all model buttons in all grids
             modelButtons.forEach(b => b.classList.remove('active'));
             this.classList.add('active');
 
@@ -164,18 +196,21 @@ document.addEventListener('DOMContentLoaded', function () {
             isMotionActive = false;
             resetMotionPositions();
 
-            // Enforce Handle Rules based on Mechanism:
+            // Enforce Strict Handle Rules based on Mechanism:
             const stepHardwareBox = document.getElementById('step-hardware-box');
 
             if (state.model.mechanism === 'slide') {
                 // Rule 1: Sliding models have NO handles (Touch / Push-to-Slide)
                 state.hardware = {
                     id: 'none',
-                    name: 'No Handles (Frameless Touch-Slide)',
+                    name: 'No Handles (Touch-Slide Push)',
                     color: 'transparent',
                     cost: 0.00
                 };
-                if (stepHardwareBox) stepHardwareBox.style.opacity = '0.5';
+                if (stepHardwareBox) {
+                    stepHardwareBox.style.opacity = '0.4';
+                    stepHardwareBox.style.pointerEvents = 'none';
+                }
             } else if (state.model.mechanism === 'fixed') {
                 // Rule 2: Fixed windows have NO handles
                 state.hardware = {
@@ -184,10 +219,16 @@ document.addEventListener('DOMContentLoaded', function () {
                     color: 'transparent',
                     cost: 0.00
                 };
-                if (stepHardwareBox) stepHardwareBox.style.opacity = '0.5';
+                if (stepHardwareBox) {
+                    stepHardwareBox.style.opacity = '0.4';
+                    stepHardwareBox.style.pointerEvents = 'none';
+                }
             } else {
                 // Rule 3: Door Open/Close models ALWAYS have DUAL handles (Left & Right)
-                if (stepHardwareBox) stepHardwareBox.style.opacity = '1';
+                if (stepHardwareBox) {
+                    stepHardwareBox.style.opacity = '1';
+                    stepHardwareBox.style.pointerEvents = 'auto';
+                }
                 // Pick active handle or default to gold
                 const activeHandleBtn = studio.querySelector('.handle-swatch-btn.active[data-handle-id^="dual"]');
                 if (activeHandleBtn) {
@@ -316,7 +357,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 svgGridVertical.setAttribute('stroke', gridStroke);
                 svgGridVertical.setAttribute('y2', clampedHeight - 12);
             }
-        } else if (state.model.id === 'four-grid') {
+        } else if (state.model.id === 'four-grid' || state.model.id === 'sliding-colonial' || state.model.id === 'four-grid-fixed') {
             if (svgGridVertical && svgGridHorizontal) {
                 svgGridVertical.style.display = 'block';
                 svgGridVertical.setAttribute('stroke', gridStroke);
@@ -364,14 +405,14 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
 
-        // Handles (Dual on both panels for doors, none for sliding)
+        // Handles (Dual on both panels for doors, none for sliding/fixed)
         const centerY = Math.round((clampedHeight / 2) - 20);
 
         if (state.hardware.id === 'none') {
             if (svgHandleLeftGroup) svgHandleLeftGroup.style.display = 'none';
             if (svgHandleRightGroup) svgHandleRightGroup.style.display = 'none';
         } else {
-            // Dual Handles
+            // Dual Handles on both left & right sashes
             if (svgHandleLeftGroup && svgHandleRightGroup) {
                 svgHandleLeftGroup.style.display = 'block';
                 svgHandleRightGroup.style.display = 'block';
@@ -424,8 +465,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Horizontal Slide Animation
                 if (isMotionActive) {
                     if (svgSashLeft) {
-                        svgSashLeft.style.transform = 'translateX(110px)';
-                        svgSashLeft.style.filter = 'drop-shadow(4px 0 12px rgba(0,0,0,0.8))';
+                        svgSashLeft.style.transformOrigin = '22px center';
+                        svgSashLeft.style.transform = 'translateX(116px)';
+                        svgSashLeft.style.filter = 'drop-shadow(4px 0 12px rgba(0,0,0,0.75))';
+                    }
+                    if (svgSashRight) {
+                        svgSashRight.style.transform = 'none';
                     }
                     toggleMechanismBtn.classList.add('active');
                     if (textSpan) textSpan.textContent = 'Slide Close ✖';
@@ -435,14 +480,16 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (textSpan) textSpan.textContent = 'Slide Open ↔️';
                 }
             } else if (state.model.mechanism === 'door') {
-                // 3D Perspective Door Swing Open Animation
+                // 3D Door Swing Outward Animation
                 if (isMotionActive) {
                     if (svgSashLeft) {
-                        svgSashLeft.style.transform = 'perspective(800px) rotateY(-50deg) scale(0.96)';
+                        svgSashLeft.style.transformOrigin = '22px center';
+                        svgSashLeft.style.transform = 'perspective(900px) rotateY(-56deg)';
                         svgSashLeft.style.filter = 'drop-shadow(-8px 4px 16px rgba(0,0,0,0.85))';
                     }
                     if (svgSashRight) {
-                        svgSashRight.style.transform = 'perspective(800px) rotateY(50deg) scale(0.96)';
+                        svgSashRight.style.transformOrigin = '338px center';
+                        svgSashRight.style.transform = 'perspective(900px) rotateY(56deg)';
                         svgSashRight.style.filter = 'drop-shadow(8px 4px 16px rgba(0,0,0,0.85))';
                     }
                     toggleMechanismBtn.classList.add('active');

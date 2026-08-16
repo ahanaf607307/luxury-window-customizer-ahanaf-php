@@ -2518,6 +2518,38 @@ button, input, textarea, select {
     color: var(--color-text-muted);
 }
 
+/* Mechanism Category Tabs */
+.mechanism-nav-tab {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 0.8rem 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.mechanism-nav-tab:hover {
+    border-color: rgba(212, 175, 55, 0.5);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.mechanism-nav-tab.active {
+    background: rgba(212, 175, 55, 0.14);
+    border-color: var(--color-gold);
+    box-shadow: 0 0 16px var(--color-gold-glow);
+}
+
+.mechanism-models-grid {
+    display: none;
+}
+
+.mechanism-models-grid.active-category {
+    display: grid;
+}
+
 /* Grid Pattern Buttons */
 .grid-style-selector {
     display: grid;
