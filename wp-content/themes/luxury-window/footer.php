@@ -24,10 +24,10 @@
                             <line x1="3" y1="12" x2="21" y2="12"></line>
                         </svg>
                     </span>
-                    <span class="logo-text">Luxe<span>Pane</span></span>
+                    <span class="logo-text">Luxury <span>Window</span></span>
                 </a>
                 <p>
-                    <?php esc_html_e('Engineered luxury architectural glass, bespoke sliding windows, and high-performance acoustic glazing tailored for modern residences and commercial projects.', 'luxepane'); ?>
+                    <?php esc_html_e('Engineered luxury architectural glass, bespoke sliding windows, and high-performance acoustic glazing tailored for modern residences and commercial projects.', 'luxury-window'); ?>
                 </p>
             </div>
 

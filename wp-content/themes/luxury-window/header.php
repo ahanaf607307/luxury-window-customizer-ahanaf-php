@@ -36,7 +36,7 @@
                                 <line x1="3" y1="12" x2="21" y2="12"></line>
                             </svg>
                         </span>
-                        <span class="logo-text">Luxe<span>Pane</span></span>
+                        <span class="logo-text">Luxury <span>Window</span></span>
                     </a>
                 <?php endif; ?>
             </div>
