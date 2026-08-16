@@ -70,9 +70,10 @@ function vlogpulse_ajax_add_custom_window_to_cart() {
     $frame_name   = isset($_POST['frame_name']) ? sanitize_text_field($_POST['frame_name']) : 'Obsidian Black';
     $glass_name   = isset($_POST['glass_name']) ? sanitize_text_field($_POST['glass_name']) : 'Crystal Clear Tempered';
     $grid_name    = isset($_POST['grid_name']) ? sanitize_text_field($_POST['grid_name']) : 'Single Pane';
-    $handle_name  = isset($_POST['handle_name']) ? sanitize_text_field($_POST['handle_name']) : 'Signature Gold Handle';
+    $handle_name  = isset($_POST['handle_name']) ? sanitize_text_field($_POST['handle_name']) : 'No Handle (Sliding)';
     $unit_price   = isset($_POST['calculated_price']) ? floatval($_POST['calculated_price']) : 250.00;
     $quantity     = isset($_POST['quantity']) ? max(1, (int)$_POST['quantity']) : 1;
+    $svg_preview  = isset($_POST['svg_preview']) ? wp_kses_post($_POST['svg_preview']) : '';
 
     // Build custom cart item data
     $custom_data = array(
@@ -85,6 +86,7 @@ function vlogpulse_ajax_add_custom_window_to_cart() {
             'grid_name'        => $grid_name,
             'handle_name'      => $handle_name,
             'custom_price'     => $unit_price,
+            'svg_preview'      => $svg_preview,
             'unique_key'       => md5($width . $height . $frame_name . $glass_name . $grid_name . $handle_name . microtime()),
         )
     );
@@ -93,17 +95,29 @@ function vlogpulse_ajax_add_custom_window_to_cart() {
 
     if ($cart_item_key) {
         wp_send_json_success(array(
-            'message'      => __('Custom window successfully added to your cart!', 'vlogpulse-core'),
+            'message'      => __('Custom window successfully added to your cart!', 'window-glass-customizer'),
             'cart_url'     => wc_get_cart_url(),
             'checkout_url' => wc_get_checkout_url(),
             'cart_count'   => WC()->cart->get_cart_contents_count(),
         ));
     } else {
-        wp_send_json_error(array('message' => __('Failed to add custom window to cart. Please try again.', 'vlogpulse-core')));
+        wp_send_json_error(array('message' => __('Failed to add custom window to cart. Please try again.', 'window-glass-customizer')));
     }
 }
 add_action('wp_ajax_vlogpulse_add_custom_window_to_cart', 'vlogpulse_ajax_add_custom_window_to_cart');
 add_action('wp_ajax_nopriv_vlogpulse_add_custom_window_to_cart', 'vlogpulse_ajax_add_custom_window_to_cart');
+
+/**
+ * 2. Custom Window Visual Thumbnail in Cart & Mini-Cart Tables
+ */
+function luxury_window_cart_item_thumbnail($thumbnail, $cart_item, $cart_item_key) {
+    if (isset($cart_item['vlogpulse_custom_window']) && !empty($cart_item['vlogpulse_custom_window']['svg_preview'])) {
+        $svg = $cart_item['vlogpulse_custom_window']['svg_preview'];
+        return '<div class="custom-window-cart-thumb" style="width: 70px; height: 70px; border-radius: 8px; overflow: hidden; background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, rgba(7,7,9,0.95) 100%); border: 1px solid #d4af37; display: flex; align-items: center; justify-content: center; padding: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.6);">' . $svg . '</div>';
+    }
+    return $thumbnail;
+}
+add_filter('woocommerce_cart_item_thumbnail', 'luxury_window_cart_item_thumbnail', 20, 3);
 
 /**
  * 2. Override Cart Item Price with Dynamic Calculated Price
