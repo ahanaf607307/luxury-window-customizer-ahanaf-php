@@ -1,4 +1,6 @@
+# ==============================================================================
 # WordPress Core Files
+# ==============================================================================
 /wp-admin/
 /wp-includes/
 /wp-config.php
@@ -21,20 +23,39 @@
 /.htaccess
 /index.php
 
-# WordPress Content & Uploads
+# ==============================================================================
+# WordPress Content, Uploads & System
+# ==============================================================================
 /wp-content/uploads/
 /wp-content/upgrade/
 /wp-content/mu-plugins/
-/wp-content/index.php
 /wp-content/languages/
-
-# Third Party Plugins
-/wp-content/plugins/woocommerce/
-/wp-content/plugins/elementor/
+/wp-content/cache/
+/wp-content/wflogs/
+/wp-content/index.php
 /wp-content/plugins/index.php
 /wp-content/themes/index.php
 
-# OS & Temp Files
+# ==============================================================================
+# Third-Party Plugins & Default Themes (Ignore All Except Custom)
+# ==============================================================================
+/wp-content/plugins/*
+!/wp-content/plugins/window-glass-customizer/
+
+/wp-content/themes/*
+!/wp-content/themes/luxury-window/
+
+# ==============================================================================
+# OS & Editor & Temporary Files
+# ==============================================================================
 .DS_Store
 Thumbs.db
 *.log
+*.sql
+*.tar.gz
+*.zip
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
