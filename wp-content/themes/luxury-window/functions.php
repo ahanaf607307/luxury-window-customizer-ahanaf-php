@@ -133,3 +133,26 @@ add_action('http_api_curl', function ($handle) {
     }
 });
 
+/**
+ * Force WooCommerce Currency to US Dollar ($) Everywhere
+ */
+add_filter('woocommerce_currency', function ($currency) {
+    return 'USD';
+});
+
+add_filter('woocommerce_currency_symbol', function ($currency_symbol, $currency) {
+    return '$';
+}, 10, 2);
+
+// Auto-sync WordPress options for WooCommerce currency
+add_action('init', function () {
+    if (get_option('woocommerce_currency') !== 'USD') {
+        update_option('woocommerce_currency', 'USD');
+        update_option('woocommerce_currency_pos', 'left');
+        update_option('woocommerce_price_thousand_sep', ',');
+        update_option('woocommerce_price_decimal_sep', '.');
+        update_option('woocommerce_price_num_decimals', 2);
+    }
+});
+
+
