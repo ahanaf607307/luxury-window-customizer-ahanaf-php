@@ -105,7 +105,7 @@ luxury-window-suite/
 
 * **Ahanaf Mubasshir**
 * GitHub: [@ahanaf607307](https://github.com/ahanaf607307)
-* Repository: [vlogpulse-theme-plugin-ahanaf-php](https://github.com/ahanaf607307/vlogpulse-theme-plugin-ahanaf-php.git)
+* Repository: [luxury-window-customizer-ahanaf-php](https://github.com/ahanaf607307/luxury-window-customizer-ahanaf-php.git)
 
 ---
 
