@@ -106,7 +106,7 @@ function vlogpulse_ajax_add_custom_window_to_cart() {
         wp_send_json_error(array('message' => __('Failed to add custom window to cart. Please try again.', 'window-glass-customizer')));
     }
 }
-add_action('wp_ajax_vlogpulse_add_custom_window_to_cart', 'vlogpulse_add_custom_window_to_cart');
+add_action('wp_ajax_vlogpulse_add_custom_window_to_cart', 'vlogpulse_ajax_add_custom_window_to_cart');
 add_action('wp_ajax_nopriv_vlogpulse_add_custom_window_to_cart', 'vlogpulse_ajax_add_custom_window_to_cart');
 
 /**
