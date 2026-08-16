@@ -105,20 +105,20 @@
                                 </svg>
                             </button>
                             <div class="dropdown-menu">
+                                <a href="<?php echo esc_url(home_url('/user-dashboard')); ?>" style="color: var(--color-gold); font-weight: 700;">
+                                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                                    <?php esc_html_e('✨ My User Dashboard', 'luxury-window'); ?>
+                                </a>
                                 <?php if (current_user_can('edit_posts')) : ?>
                                     <a href="<?php echo esc_url(admin_url()); ?>" target="_blank">
-                                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-                                        <?php esc_html_e('WP Admin / Dashboard', 'luxury-window'); ?>
+                                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                                        <?php esc_html_e('WP Admin Panel', 'luxury-window'); ?>
                                     </a>
                                     <a href="<?php echo esc_url(home_url('/create-post')); ?>">
                                         <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                                         <?php esc_html_e('Create Vlog / Post', 'luxury-window'); ?>
                                     </a>
                                 <?php endif; ?>
-                                <a href="<?php echo esc_url(admin_url('profile.php')); ?>">
-                                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                                    <?php esc_html_e('My Profile', 'luxury-window'); ?>
-                                </a>
                                 <a href="<?php echo esc_url(wp_logout_url(home_url())); ?>" class="logout-link">
                                     <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
                                     <?php esc_html_e('Sign Out', 'luxury-window'); ?>

@@ -90,3 +90,37 @@ function ahanaf_get_reading_time($post_id = null) {
     $reading_time = ceil($word_count / 200); // গড়ে মানুষ প্রতি মিনিটে ২০০ শব্দ পড়ে
     return max(1, $reading_time) . ' min read';
 }
+
+/**
+ * Auto-create required pages on init (User Dashboard, Window Studio, About, Contact)
+ */
+function luxury_window_auto_create_pages() {
+    $pages = array(
+        'user-dashboard' => array(
+            'title'    => 'User Dashboard',
+            'template' => 'page-dashboard.php',
+            'content'  => '',
+        ),
+    );
+
+    foreach ($pages as $slug => $data) {
+        $existing = get_page_by_path($slug);
+        if (!$existing) {
+            $page_id = wp_insert_post(array(
+                'post_title'     => $data['title'],
+                'post_name'      => $slug,
+                'post_status'    => 'publish',
+                'post_type'      => 'page',
+                'post_content'   => $data['content'],
+                'comment_status' => 'closed',
+            ));
+            if ($page_id && !is_wp_error($page_id)) {
+                update_post_meta($page_id, '_wp_page_template', $data['template']);
+            }
+        } else {
+            update_post_meta($existing->ID, '_wp_page_template', $data['template']);
+        }
+    }
+}
+add_action('init', 'luxury_window_auto_create_pages');
+
