@@ -155,4 +155,38 @@ add_action('init', function () {
     }
 });
 
+/**
+ * Local Environment Only: Auto-complete payment verification on test checkouts
+ * 
+ * লাইভ সাইটে (Production) এটি স্বয়ংক্রিয়ভাবে ডিজেবল থাকবে যাতে রিয়েল পেমেন্ট গেটওয়ে সিকিউরিটিতে কোনো প্রভাব না পড়ে।
+ */
+add_action('woocommerce_thankyou', function ($order_id) {
+    if (!$order_id) {
+        return;
+    }
+
+    // চেক করা সাইটটি লোকালহোস্টে চলছে কিনা (.local, localhost, 127.0.0.1 বা local env)
+    $http_host = isset($_SERVER['HTTP_HOST']) ? sanitize_text_field(wp_unslash($_SERVER['HTTP_HOST'])) : '';
+    $server_addr = isset($_SERVER['SERVER_ADDR']) ? sanitize_text_field(wp_unslash($_SERVER['SERVER_ADDR'])) : '';
+    $is_local_env = (
+        (function_exists('wp_get_environment_type') && in_array(wp_get_environment_type(), array('local', 'development'), true)) ||
+        strpos($http_host, '.local') !== false ||
+        strpos($http_host, 'localhost') !== false ||
+        in_array($server_addr, array('127.0.0.1', '::1'), true)
+    );
+
+    // লাইভ সাইট হলে কোডটি কাজ করবে না (নিরাপত্তা নিশ্চিত করতে)
+    if (!$is_local_env) {
+        return;
+    }
+
+    $order = wc_get_order($order_id);
+    if ($order && in_array($order->get_status(), array('pending', 'on-hold'), true)) {
+        // লোকাল টেস্টে পেমেন্ট কমপ্লিট করে স্ট্যাটাস Processing ও Paid করা
+        $order->payment_complete();
+        $order->add_order_note(__('Local Test Environment: Card payment auto-verified for testing.', 'luxury-window'));
+    }
+});
+
+
 
