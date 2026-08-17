@@ -216,17 +216,114 @@ $liked_count = count($liked_posts);
                             $date_created = $order->get_date_created() ? $order->get_date_created()->date_i18n('F j, Y, g:i a') : '';
                             $total = $order->get_formatted_order_total();
                             $items = $order->get_items();
+
+                            // 1. Order / Production Status Configuration
+                            switch ($status) {
+                                case 'completed':
+                                    $order_label  = __('Completed', 'luxury-window');
+                                    $order_icon   = '✅';
+                                    $order_color  = '#10b981';
+                                    $order_bg     = 'rgba(16, 185, 129, 0.15)';
+                                    $order_border = 'rgba(16, 185, 129, 0.35)';
+                                    break;
+                                case 'processing':
+                                    $order_label  = __('In Production', 'luxury-window');
+                                    $order_icon   = '⚙️';
+                                    $order_color  = '#38bdf8';
+                                    $order_bg     = 'rgba(56, 189, 248, 0.15)';
+                                    $order_border = 'rgba(56, 189, 248, 0.35)';
+                                    break;
+                                case 'on-hold':
+                                    $order_label  = __('On Hold', 'luxury-window');
+                                    $order_icon   = '⏸️';
+                                    $order_color  = '#fbbf24';
+                                    $order_bg     = 'rgba(251, 191, 36, 0.15)';
+                                    $order_border = 'rgba(251, 191, 36, 0.35)';
+                                    break;
+                                case 'cancelled':
+                                    $order_label  = __('Cancelled', 'luxury-window');
+                                    $order_icon   = '🚫';
+                                    $order_color  = '#94a3b8';
+                                    $order_bg     = 'rgba(148, 163, 184, 0.15)';
+                                    $order_border = 'rgba(148, 163, 184, 0.35)';
+                                    break;
+                                case 'refunded':
+                                    $order_label  = __('Refunded', 'luxury-window');
+                                    $order_icon   = '↩️';
+                                    $order_color  = '#c084fc';
+                                    $order_bg     = 'rgba(192, 132, 252, 0.15)';
+                                    $order_border = 'rgba(192, 132, 252, 0.35)';
+                                    break;
+                                case 'failed':
+                                    $order_label  = __('Failed', 'luxury-window');
+                                    $order_icon   = '⚠️';
+                                    $order_color  = '#f87171';
+                                    $order_bg     = 'rgba(248, 113, 113, 0.15)';
+                                    $order_border = 'rgba(248, 113, 113, 0.35)';
+                                    break;
+                                case 'pending':
+                                default:
+                                    $order_label  = __('Order Placed', 'luxury-window');
+                                    $order_icon   = '📝';
+                                    $order_color  = 'var(--color-gold)';
+                                    $order_bg     = 'rgba(212, 175, 55, 0.15)';
+                                    $order_border = 'rgba(212, 175, 55, 0.35)';
+                                    break;
+                            }
+
+                            // 2. Payment Status Configuration
+                            $is_paid = $order->is_paid();
+                            if ($is_paid || in_array($status, array('processing', 'completed'))) {
+                                $pay_label  = __('Paid', 'luxury-window');
+                                $pay_icon   = '💳';
+                                $pay_color  = '#10b981';
+                                $pay_bg     = 'rgba(16, 185, 129, 0.15)';
+                                $pay_border = 'rgba(16, 185, 129, 0.35)';
+                            } elseif ($status === 'refunded') {
+                                $pay_label  = __('Refunded', 'luxury-window');
+                                $pay_icon   = '↩️';
+                                $pay_color  = '#c084fc';
+                                $pay_bg     = 'rgba(192, 132, 252, 0.15)';
+                                $pay_border = 'rgba(192, 132, 252, 0.35)';
+                            } elseif ($status === 'failed') {
+                                $pay_label  = __('Payment Failed', 'luxury-window');
+                                $pay_icon   = '❌';
+                                $pay_color  = '#f87171';
+                                $pay_bg     = 'rgba(248, 113, 113, 0.15)';
+                                $pay_border = 'rgba(248, 113, 113, 0.35)';
+                            } elseif ($status === 'on-hold') {
+                                $pay_label  = __('Payment On Hold', 'luxury-window');
+                                $pay_icon   = '⏳';
+                                $pay_color  = '#fbbf24';
+                                $pay_bg     = 'rgba(251, 191, 36, 0.15)';
+                                $pay_border = 'rgba(251, 191, 36, 0.35)';
+                            } else {
+                                $pay_label  = __('Payment Pending', 'luxury-window');
+                                $pay_icon   = '⏳';
+                                $pay_color  = '#f59e0b';
+                                $pay_bg     = 'rgba(245, 158, 11, 0.15)';
+                                $pay_border = 'rgba(245, 158, 11, 0.35)';
+                            }
                         ?>
                             <div class="order-card glass-card" style="padding: 1.75rem; border-radius: 14px; background: rgba(18,18,24,0.7); border: 1px solid rgba(255,255,255,0.08);">
                                 <!-- Order Header -->
                                 <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 1rem; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 1rem;">
                                     <div>
-                                        <div style="display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.3rem;">
+                                        <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 0.4rem;">
                                             <h3 style="font-size: 1.2rem; font-weight: 800; color: #fff; margin: 0;">
                                                 <?php printf(esc_html__('Order #%s', 'luxury-window'), esc_html($order->get_order_number())); ?>
                                             </h3>
-                                            <span class="order-status-badge status-<?php echo esc_attr($status); ?>" style="font-size: 0.75rem; font-weight: 700; padding: 0.25rem 0.75rem; border-radius: 20px; text-transform: uppercase; background: <?php echo ($status === 'completed') ? 'rgba(16,185,129,0.15)' : 'rgba(212,175,55,0.15)'; ?>; color: <?php echo ($status === 'completed') ? '#10b981' : 'var(--color-gold)'; ?>; border: 1px solid currentColor;">
-                                                <?php echo esc_html(wc_get_order_status_name($status)); ?>
+
+                                            <!-- 1. Order Status Badge -->
+                                            <span class="order-fulfillment-badge" style="display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.75rem; font-weight: 700; padding: 0.25rem 0.75rem; border-radius: 20px; text-transform: uppercase; background: <?php echo esc_attr($order_bg); ?>; color: <?php echo esc_attr($order_color); ?>; border: 1px solid <?php echo esc_attr($order_border); ?>;">
+                                                <span><?php echo esc_html($order_icon); ?></span>
+                                                <span><?php echo esc_html($order_label); ?></span>
+                                            </span>
+
+                                            <!-- 2. Payment Status Badge -->
+                                            <span class="order-payment-badge" style="display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.75rem; font-weight: 700; padding: 0.25rem 0.75rem; border-radius: 20px; text-transform: uppercase; background: <?php echo esc_attr($pay_bg); ?>; color: <?php echo esc_attr($pay_color); ?>; border: 1px solid <?php echo esc_attr($pay_border); ?>;">
+                                                <span><?php echo esc_html($pay_icon); ?></span>
+                                                <span><?php echo esc_html($pay_label); ?></span>
                                             </span>
                                         </div>
                                         <p style="color: #94a3b8; font-size: 0.85rem; margin: 0;">
